@@ -10,11 +10,12 @@ public class test {
     }
     
     public static void ArrayStack_Test () {
+        System.out.println("Running tests on ArrayStack:");
         ArrayStack<Integer> newSimpleArray = new ArrayStack<>();
         insertAndPopSS(newSimpleArray);
         topAndSizeSS(newSimpleArray);
     }
-
+    
     public static void insertAndPopSS (ArrayStack<Integer> stack) {
         try{
             for (int i=0;i<6;i++) {
@@ -52,24 +53,25 @@ public class test {
     }
 
     public static void ArrayDoubleStack_Test () {
-        ArrayDoubleStack newDoubleArray = new ArrayDoubleStack(1);
+        System.out.println("\n"+ "Running tests on ArrayDoubleStack:");
+        ArrayDoubleStack<Double> newDoubleArray = new ArrayDoubleStack<>();
         InsertAndPopDS(newDoubleArray);
         TopAndSizeDS(newDoubleArray);
     }
     
-    public static void InsertAndPopDS(ArrayDoubleStack doubleArray){
+    public static void InsertAndPopDS(ArrayDoubleStack<Double> doubleArray){
         
-        doubleArray.Push(true, 5); 
-        doubleArray.Push(false,10); 
-        doubleArray.Push(false, 15); 
-        doubleArray.Push(true, 11); 
-        doubleArray.Push(false, 7); 
+        doubleArray.Push(true, 5.00); 
+        doubleArray.Push(false,(double) 10); 
+        doubleArray.Push(false, (double)15); 
+        doubleArray.Push(true, (double)11); 
+        doubleArray.Push(false, (double)7); 
         System.out.println("Popped element from stack1 is "+ ": " + doubleArray.Pop(true)); 
-        doubleArray.Push(false, 40); 
+        doubleArray.Push(false, (double)40); 
         System.out.println("Popped element from stack2 is " + ": " + doubleArray.Pop(false)); 
     }
     
-    public static void TopAndSizeDS(ArrayDoubleStack doubleArray){
+    public static void TopAndSizeDS(ArrayDoubleStack<Double> doubleArray){
         System.out.println("Top element from stack1 is "+ ": " + doubleArray.Top(true)); 
         System.out.println("Top element from stack2 is "+ ": " + doubleArray.Top(false)); 
 
