@@ -2,31 +2,62 @@ package DoubleStack;
 
 public class ArrayDoubleStack implements DoubleStack{
     private double[] array; 
-    private int top1 = -1; 
-    private int top2 = array.length; 
-    final int maxSize = top1+top2;
+    private int top1 , top2;
+    private int maxSize;
 
     public ArrayDoubleStack(int n) {
 
-        if (n < 1) {
-            throw new IllegalArgumentException("Size must be positive integer");
-        }
+        if (n < 1) throw new IllegalArgumentException("Size must be positive integer");
+
+        maxSize = n;
+        top1 = n/2; 
+        top2 = n/2 + 1; 
         array = new double[n];
     }
 
-    /**  Push 'e' onto the stack and return true. If the stack is already full, return false. */
-    public boolean Push(boolean one, double e) {
+    /**  Push 'e' onto the stack and return true. If the stack is already full, return false.<p/>
+    * {@code arr} = 0 for first stack <p/>
+    * {@code arr} = 1 for second stack
+    * 
+    * @author Lilian Tokam
+    */
+    public boolean Push(boolean arr, double e) {
 
-        if (isFull()) {
-            return false;
+        if (arr == false) {
+        // push element 'e' to first stack (left)
+            if (top1 < maxSize - 1){
+                top1++;
+                array[top1] = e;
+
+                return true;
+            }else{
+                System.out.println("Stack Overflow" + " By element : " + e);
+                return false;
+            }    
+
+        }else if (arr == true){
+        // push element 'e' to the second stack (left)
+            if (top2 > 0) {
+                top2 --;
+                array[top2] = e;
+
+                return true;
+            }else{
+                System.out.println("Stack Overflow" + " By element : " + e);
+                return false;
+            }
         }else{
-            array[++top2] = e;
-            return true;
+            return false;
         }
     }
     
-    /**  Remove the last element off the stack and return it. If the stack is empty, return nothing*/
-    public double Pop(boolean one) {
+    /** Remove the last element off the stack and return it. If the stack is empty, return nothing <p/>
+     * {@code arr} = 0 for first stack <p/>
+     * {@code arr} = 1 for second stack
+     * 
+     * @author Lilian Tokam
+    */
+    public double Pop(boolean arr) {
         double temp = 0;
         // to be changed!
         if (!isFull()) temp = array[top2--];
@@ -34,15 +65,24 @@ public class ArrayDoubleStack implements DoubleStack{
         return temp;
     }
     
-    /** Return the last element on the stack*/
-    public double Top(boolean one){
+    /** Return the last element on the stack <p/>
+     * {@code arr} = 0 for first stack <p/>
+     * {@code arr} = 1 for second stack
+     * 
+     * @author Lilian Tokam
+    */
+    public double Top(boolean arr){
         return array[top2];
     }
     
     /**
-     *   Return the length of the stack*
+    * Return the length of the stack <p/>
+    * {@code arr} = 0 for first stack <p/>
+    * {@code arr} = 1 for second stack
+    * 
+    * @author Lilian Tokam
     */
-    public int size(boolean one){
+    public int size(boolean arr){
         return top1 + top2;
     }
     
