@@ -10,14 +10,14 @@ public class test {
     }
     
     public static void ArrayStack_Test () {
-        ArrayStack newSimpleArray = new ArrayStack(5);
+        ArrayStack<Integer> newSimpleArray = new ArrayStack<>();
         insertAndPopSS(newSimpleArray);
         topAndSizeSS(newSimpleArray);
     }
 
-    public static void insertAndPopSS (ArrayStack stack) {
+    public static void insertAndPopSS (ArrayStack<Integer> stack) {
         try{
-            for (long i=0;i<6;i++) {
+            for (int i=0;i<6;i++) {
                 int randNum = (int)(Math.random()*9 + 1);
                 stack.Push(randNum);
             }
@@ -39,7 +39,7 @@ public class test {
        
     }    
 
-    public static void topAndSizeSS(ArrayStack stack) {
+    public static void topAndSizeSS(ArrayStack<Integer> stack) {
         System.out.println("\n");
         System.out.println("Size of stack is " + stack.size());
         
