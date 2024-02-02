@@ -5,39 +5,49 @@ import DoubleStack.ArrayDoubleStack;
 public class test {
 
     public static void main(String[] args) {
-        InsertAndPop();
+        
     }
     
     public static void ArrayStack_Test () {
         ArrayStack newSimpleArray = new ArrayStack(1);
-        System.out.println(newSimpleArray);
+        insertAndPopSS(newSimpleArray);
+        topAndSizeSS(newSimpleArray);
     }
 
+    public static void insertAndPopSS (ArrayStack stack) {
+
+    }    
+
+    public static void topAndSizeSS(ArrayStack stack) {
+        
+    }
     public static void ArrayDoubleStack_Test () {
         ArrayDoubleStack newDoubleArray = new ArrayDoubleStack(1);
-        System.out.println(newDoubleArray);
+        InsertAndPopDS(newDoubleArray);
+        TopAndSizeDS(newDoubleArray);
     }
     
-    public static void InsertAndPop(){
+    public static void InsertAndPopDS(ArrayDoubleStack doubleArray){
         
-        ArrayDoubleStack newDoubleArray = new ArrayDoubleStack(5); 
-        newDoubleArray.Push(true, 5); 
-        newDoubleArray.Push(false,10); 
-        newDoubleArray.Push(false, 15); 
-        newDoubleArray.Push(true, 11); 
-        newDoubleArray.Push(false, 7); 
-        System.out.println("Popped element from stack1 is "+ ": " + newDoubleArray.Pop(true)); 
-        newDoubleArray.Push(false, 40); 
-        System.out.println("Popped element from stack2 is " + ": " + newDoubleArray.Pop(false)); 
-        
-        System.out.println("Top element from stack1 is "+ ": " + newDoubleArray.Top(true)); 
-        System.out.println("Top element from stack2 is "+ ": " + newDoubleArray.Top(false)); 
+        doubleArray.Push(true, 5); 
+        doubleArray.Push(false,10); 
+        doubleArray.Push(false, 15); 
+        doubleArray.Push(true, 11); 
+        doubleArray.Push(false, 7); 
+        System.out.println("Popped element from stack1 is "+ ": " + doubleArray.Pop(true)); 
+        doubleArray.Push(false, 40); 
+        System.out.println("Popped element from stack2 is " + ": " + doubleArray.Pop(false)); 
+    }
+    
+    public static void TopAndSizeDS(ArrayDoubleStack doubleArray){
+        System.out.println("Top element from stack1 is "+ ": " + doubleArray.Top(true)); 
+        System.out.println("Top element from stack2 is "+ ": " + doubleArray.Top(false)); 
 
-        System.out.println("Size of stack1 is "+ ": " + newDoubleArray.Size(true)); 
-        System.out.println("Size of stack2 is "+ ": " + newDoubleArray.Size(false)); 
+        System.out.println("Size of stack1 is "+ ": " + doubleArray.Size(true)); 
+        System.out.println("Size of stack2 is "+ ": " + doubleArray.Size(false)); 
 
-        System.out.println(newDoubleArray.isFull());
-        newDoubleArray.print();
+        System.out.println(doubleArray.isFull());
+        doubleArray.print();
     }
 
 }
