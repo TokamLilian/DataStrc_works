@@ -23,8 +23,10 @@ public class ArrayDoubleStack implements DoubleStack{
     */
     public boolean Push(boolean arr, double e) {
 
-        if (arr == false) {
-        // push element 'e' to first stack (left)
+        if (arr == true) {
+        // push element 'e' to first stack (growing right)
+
+            // check for at least an empty space for adding a new element
             if (top1 < maxSize - 1){
                 top1++;
                 array[top1] = e;
@@ -35,8 +37,10 @@ public class ArrayDoubleStack implements DoubleStack{
                 return false;
             }    
 
-        }else if (arr == true){
-        // push element 'e' to the second stack (right)
+        }else if (arr == false){
+        // push element 'e' to the second stack (growing left)
+            
+            // at least an empty space
             if (top2 > 0) {
                 top2 --;
                 array[top2] = e;
@@ -59,8 +63,8 @@ public class ArrayDoubleStack implements DoubleStack{
     */
     public double Pop(boolean arr) {
         double temp = 0;
-        if (arr == false) {
-        // pop element from first stack (left)
+        if (arr == true) {
+        // pop element from second stack (right)
             if (top1 >= maxSize/2 + 1){
                 temp = array[top1];
                 top1--;
@@ -70,8 +74,8 @@ public class ArrayDoubleStack implements DoubleStack{
             }    
             return temp;
     
-        }else if (arr == true){
-        // pop element from the second stack (right)
+        }else if (arr == false){
+        // pop element from the first stack (left)
             if (top2 <= maxSize/2) {
                 temp = array[top2];
                 top2 ++;
@@ -94,7 +98,10 @@ public class ArrayDoubleStack implements DoubleStack{
      * @author Lilian Tokam
     */
     public double Top(boolean arr){
-        return array[top2];
+        double temp = 0;
+        if (arr == false) return array[top2];
+        else if (arr == true) return array[top1];
+        else return temp;
     }
     
     /**
@@ -104,8 +111,12 @@ public class ArrayDoubleStack implements DoubleStack{
     * 
     * @author Lilian Tokam
     */
-    public int size(boolean arr){
-        return top1 + top2;
+    public int Size(boolean arr){
+        int size = 0;
+        if (arr == false) size = maxSize/2 - (maxSize - 1  - top2)/2 + 1;
+        else if (arr == true) size = maxSize/2 - (maxSize - 1 - top1); 
+
+        return size;
     }
     
     // /** Return true if the stack is empty.*/

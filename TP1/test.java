@@ -26,15 +26,15 @@ public class test {
         newDoubleArray.Push(false, 15); 
         newDoubleArray.Push(true, 11); 
         newDoubleArray.Push(false, 7); 
-        System.out.println("Popped element from stack2 is " + ": " + newDoubleArray.Pop(false)); 
-        newDoubleArray.Push(true, 40); 
         System.out.println("Popped element from stack1 is "+ ": " + newDoubleArray.Pop(true)); 
+        newDoubleArray.Push(false, 40); 
+        System.out.println("Popped element from stack2 is " + ": " + newDoubleArray.Pop(false)); 
         
-        System.out.println("Top element from stack2 is "+ ": " + newDoubleArray.Top(false)); 
         System.out.println("Top element from stack1 is "+ ": " + newDoubleArray.Top(true)); 
+        System.out.println("Top element from stack2 is "+ ": " + newDoubleArray.Top(false)); 
 
-        System.out.println("Size of stack1 is "+ ": " + newDoubleArray.Size(false)); 
-        System.out.println("Size of stack2 is "+ ": " + newDoubleArray.Size(true)); 
+        System.out.println("Size of stack1 is "+ ": " + newDoubleArray.Size(true)); 
+        System.out.println("Size of stack2 is "+ ": " + newDoubleArray.Size(false)); 
     }
 
 }
