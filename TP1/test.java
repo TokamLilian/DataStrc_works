@@ -5,22 +5,52 @@ import DoubleStack.ArrayDoubleStack;
 public class test {
 
     public static void main(String[] args) {
-        
+        ArrayStack_Test();
+        ArrayDoubleStack_Test();
     }
     
     public static void ArrayStack_Test () {
-        ArrayStack newSimpleArray = new ArrayStack(1);
+        ArrayStack newSimpleArray = new ArrayStack(5);
         insertAndPopSS(newSimpleArray);
         topAndSizeSS(newSimpleArray);
     }
 
     public static void insertAndPopSS (ArrayStack stack) {
+        try{
+            for (long i=0;i<6;i++) {
+                int randNum = (int)(Math.random()*9 + 1);
+                stack.Push(randNum);
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
 
+        try{
+
+            int size = stack.size();
+            long temp;
+            for (int j=0;j<size+1;j++) {
+                temp = stack.Pop();
+                System.out.print("\n" + "Poped element is " + temp);
+            }
+        }catch  (Exception e){
+            System.out.println("\n" + e.getMessage());
+        }
+       
     }    
 
     public static void topAndSizeSS(ArrayStack stack) {
+        System.out.println("\n");
+        System.out.println("Size of stack is " + stack.size());
+        
+        try{
+            System.out.println("Top element of stack is " + stack.Top());
+        }catch  (Exception e){
+            System.out.println(e.getMessage());
+        }
         
     }
+
     public static void ArrayDoubleStack_Test () {
         ArrayDoubleStack newDoubleArray = new ArrayDoubleStack(1);
         InsertAndPopDS(newDoubleArray);
