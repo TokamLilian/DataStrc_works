@@ -1,27 +1,27 @@
 package DoubleStack;
 
-public class ArrayDoubleStack implements DoubleStack{
-    private double[] array; 
+public class ArrayDoubleStack<E> implements DoubleStack{
+    private final int maxSize = 100;
+    private Object[] array; 
     private int top1 , top2;
-    private int maxSize;
 
-    public ArrayDoubleStack(int n) {
+    public ArrayDoubleStack() {
 
-        if (n < 1) throw new IllegalArgumentException("Size must be positive integer");
+        //if (n < 1) throw new IllegalArgumentException("Size must be positive integer");
+        //maxSize = n;
 
-        maxSize = n;
-        top1 = n/2; 
-        top2 = n/2 + 1; 
-        array = new double[n];
+        top1 = maxSize/2; 
+        top2 = maxSize/2 + 1; 
+        array = new Object[maxSize];
     }
 
     /**  Push 'e' onto the stack and return true. If the stack is already full, return false.<p/>
-    * {@code arr} = 0 for first stack <p/>
-    * {@code arr} = 1 for second stack
+    * {@code arr} = true for first stack <p/>
+    * {@code arr} = false for second stack
     * 
     * @author Lilian Tokam
     */
-    public boolean Push(boolean arr, double e) {
+    public boolean Push(boolean arr, E e) {
 
         if (arr == true) {
         // push element 'e' to first stack (growing right)
@@ -56,52 +56,52 @@ public class ArrayDoubleStack implements DoubleStack{
     }
     
     /** Remove the last element off the stack and return it. If the stack is empty, return nothing <p/>
-     * {@code arr} = 0 for first stack <p/>
-     * {@code arr} = 1 for second stack
+     * {@code arr} = true for first stack <p/>
+     * {@code arr} = false for second stack
      * 
      * @author Lilian Tokam
     */
-    public double Pop(boolean arr) {
-        double temp = 0;
+    public E Pop(boolean arr) {
+        E temp;
         if (arr == true) {
         // pop element from second stack (right)
             if (top1 >= maxSize/2 + 1){
-                temp = array[top1];
+                temp = (E) array[top1];
                 top1--;
+                return temp;
     
             }else{
-                System.out.println("Stack Underflow");
+                throw  new RuntimeException("NoSuchElementException: The Stack Is Empty");
             }    
-            return temp;
     
         }else if (arr == false){
         // pop element from the first stack (left)
             if (top2 <= maxSize/2) {
-                temp = array[top2];
+                temp = (E) array[top2];
                 top2 ++;
-
+                
+                return temp;
             }else{
-                System.out.println("Stack Underflow");
+                throw  new RuntimeException("NoSuchElementException: The Stack Is Empty");
             }
-            return temp;
 
         }else{
-            return temp;
+            throw new IllegalArgumentException("Invalid Argument: You must specify which stack to use.");
         }
 
     }
     
     /** Return the last element on the stack <p/>
-     * {@code arr} = 0 for first stack <p/>
-     * {@code arr} = 1 for second stack
+     * {@code arr} = true for first stack <p/>
+     * {@code arr} = false for second stack
      * 
      * @author Lilian Tokam
     */
-    public double Top(boolean arr){
-        double temp = 0;
-        if (arr == false) return array[top2];
-        else if (arr == true) return array[top1];
-        else return temp;
+    public E Top(boolean arr){
+        E temp;
+        if (arr == false) return (E) array[top2];
+        else if (arr == true) return (E) array[top1];
+        else throw new IllegalArgumentException();
     }
     
     /**
@@ -118,32 +118,26 @@ public class ArrayDoubleStack implements DoubleStack{
 
         return size;
     }
-    
-    // /** Return true if the stack is empty.*/
-    // public boolean isEmpty() {
-    //     return (top1 == -1 || top2 == -1);
-    // }
 
-    /** return true if the double stack is full.*/
+    /** return true if the E stack is full.*/
     public boolean isFull() {
        return (top2 == 0 && top1 == maxSize - 1);
     }
     
     /** print the content of the two stacks */
-
-    //Idea: We could create two objects of type ArrayStack and store them in the same array (double array)
-    //so that each element can have a defined "toString" of the implemented class "ArrayStack"
     public void print() {
         System.out.println("Stack 1: ");
 
         for (int i=maxSize/2 + 1 ; i<=top1 ; i++)
-            System.out.print(array[i] + " ");
+            if (array[i] == null) break;
+            else System.out.print(array[i] + " ");
 
         System.out.println("\n");
 
         System.out.println("Stack 2: ");
         for (int j=maxSize/2 ; j>=0 ; j--)
-            System.out.print(array[j] + " ");
+            if (array[j] == null) break;
+            else System.out.print(array[j] + " ");
 
     }
 
