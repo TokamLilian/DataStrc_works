@@ -35,6 +35,9 @@ public class test {
 
         System.out.println("Size of stack1 is "+ ": " + newDoubleArray.Size(true)); 
         System.out.println("Size of stack2 is "+ ": " + newDoubleArray.Size(false)); 
+
+        System.out.println(newDoubleArray.isFull());
+        newDoubleArray.print();
     }
 
 }

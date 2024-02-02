@@ -113,7 +113,7 @@ public class ArrayDoubleStack implements DoubleStack{
     */
     public int Size(boolean arr){
         int size = 0;
-        if (arr == false) size = maxSize/2 - (maxSize - 1  - top2)/2 + 1;
+        if (arr == false) size = (maxSize/2 + 1) - top2;
         else if (arr == true) size = maxSize/2 - (maxSize - 1 - top1); 
 
         return size;
@@ -126,7 +126,7 @@ public class ArrayDoubleStack implements DoubleStack{
 
     /** return true if the double stack is full.*/
     public boolean isFull() {
-       return (top1 == maxSize/2 && top2 == maxSize - 1);
+       return (top2 == 0 && top1 == maxSize - 1);
     }
     
     /** print the content of the two stacks */
@@ -134,7 +134,17 @@ public class ArrayDoubleStack implements DoubleStack{
     //Idea: We could create two objects of type ArrayStack and store them in the same array (double array)
     //so that each element can have a defined "toString" of the implemented class "ArrayStack"
     public void print() {
-        System.out.println(array.toString());;
+        System.out.println("Stack 1: ");
+
+        for (int i=maxSize/2 + 1 ; i<=top1 ; i++)
+            System.out.print(array[i] + " ");
+
+        System.out.println("\n");
+
+        System.out.println("Stack 2: ");
+        for (int j=maxSize/2 ; j>=0 ; j--)
+            System.out.print(array[j] + " ");
+
     }
 
 }
