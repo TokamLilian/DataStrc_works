@@ -17,6 +17,8 @@ public class ArrayStack implements Stack {
     public void Push(long e) {
         if (!isFull()) {
             theArray[++topOfStack] = (long) e;
+        }else{
+            throw  new RuntimeException("Stack Full: Can't push");
         }
     }
 
@@ -30,7 +32,8 @@ public class ArrayStack implements Stack {
 
     /** Return the last element on the stack*/
     public long Top(){
-        return theArray[topOfStack];
+        if (!isEmpty()) return theArray[topOfStack];
+        else throw new RuntimeException("Stack Empty: There isn't a top element");
     }
     
     /**
