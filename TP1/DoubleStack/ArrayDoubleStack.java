@@ -114,7 +114,7 @@ public class ArrayDoubleStack<E> implements DoubleStack{
     public int Size(boolean arr){
         int size = 0;
         if (arr == false) size = (maxSize/2 + 1) - top2;
-        else if (arr == true) size = maxSize/2 - (maxSize - 1 - top1); 
+        else if (arr == true) size = top1 - maxSize/2; 
 
         return size;
     }
@@ -129,15 +129,13 @@ public class ArrayDoubleStack<E> implements DoubleStack{
         System.out.println("Stack 1: ");
 
         for (int i=maxSize/2 + 1 ; i<=top1 ; i++)
-            if (array[i] == null) break;
-            else System.out.print(array[i] + " ");
+            System.out.print(array[i] + " ");
 
         System.out.println("\n");
 
         System.out.println("Stack 2: ");
-        for (int j=maxSize/2 ; j>=0 ; j--)
-            if (array[j] == null) break;
-            else System.out.print(array[j] + " ");
+        for (int j=maxSize/2 ; j>=top2 ; j--)
+            System.out.print(array[j] + " ");
 
     }
 
