@@ -14,14 +14,20 @@ public class ArraySpecialStack implements SpecialStack{
     }
 
     @Override
-    public int getMax(){
+    public int getMax() throws StackEmptyException {
         // returns the maximum element stored in the array
         int max = theArray[0];
-        for (int i=1; i<=topOfStack; i++){
-            if (theArray[i] > max){
-                max = theArray[i];
-            }    
+        if (!isEmpty()){
+            for (int i=1; i<=topOfStack; i++){
+                if (theArray[i] > max){
+                    max = theArray[i];
+                }    
+            }
+
+        }else{
+            throw new StackEmptyException("Empty stack:  can't retrieve max value");
         }
+        
         return max;
 
     }
