@@ -1,38 +1,40 @@
 package Stack;
 
-public class ArrayStack implements Stack {
-    private int maxSize = 100;        // maximum size of the stack (array length)
+public class ArrayStack<E> implements Stack {
+    private final int maxSize = 100;        // maximum size of the stack (array length)
     private int topOfStack;           // index of the top item in the array
-    private long[] theArray;          // reference to the array of items
+    private Object[] theArray;          // reference to the array of items
 
-    public ArrayStack(int s) {
+    public ArrayStack() {
 
-        if (s < 1) throw new RuntimeException("Stack must be at least one element");
-        maxSize = s;
+        //if (s < 1) throw new RuntimeException("Stack must be at least one element");
         topOfStack = -1;
-        theArray = new long[maxSize];
+        theArray = new Object[maxSize];
     }
     
     /**  Push 'it' onto the stack. If the stack is already full, do nothing.*/
-    public void Push(long e) {
+    public void Push(E e) {
         if (!isFull()) {
-            theArray[++topOfStack] = (long) e;
+            theArray[++topOfStack] = e;
         }else{
             throw  new RuntimeException("Stack Full: Can't push");
         }
     }
 
     /**  Take the top item off the stack and return it. If the stack is empty, return nothing*/
-    public long Pop() {
-        long temp = 0;
-        if (!isEmpty()) temp = theArray[topOfStack--];
+    public E Pop() {
+        E temp;
+        if (!isEmpty()){
+            temp = (E) theArray[topOfStack--];
+            return temp;
 
-        return temp;
+        }else throw new IllegalStateException("Stack is empty");
+
     }
 
     /** Return the last element on the stack*/
-    public long Top(){
-        if (!isEmpty()) return theArray[topOfStack];
+    public E Top(){
+        if (!isEmpty()) return (E) theArray[topOfStack];
         else throw new RuntimeException("Stack Empty: There isn't a top element");
     }
     
