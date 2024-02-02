@@ -12,7 +12,7 @@ public class ArrayStack<E> implements Stack {
         theArray = new Object[maxSize];
     }
     
-    /**  Push 'it' onto the stack. If the stack is already full, do nothing.*/
+    /**  Push 'e' onto the stack. If the stack is already full, do nothing.*/
     public void Push(E e) {
         if (!isFull()) {
             theArray[++topOfStack] = e;
