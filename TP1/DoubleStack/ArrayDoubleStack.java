@@ -36,7 +36,7 @@ public class ArrayDoubleStack implements DoubleStack{
             }    
 
         }else if (arr == true){
-        // push element 'e' to the second stack (left)
+        // push element 'e' to the second stack (right)
             if (top2 > 0) {
                 top2 --;
                 array[top2] = e;
@@ -59,10 +59,32 @@ public class ArrayDoubleStack implements DoubleStack{
     */
     public double Pop(boolean arr) {
         double temp = 0;
-        // to be changed!
-        if (!isFull()) temp = array[top2--];
+        if (arr == false) {
+        // pop element from first stack (left)
+            if (top1 >= maxSize/2 + 1){
+                temp = array[top1];
+                top1--;
     
-        return temp;
+            }else{
+                System.out.println("Stack Underflow");
+            }    
+            return temp;
+    
+        }else if (arr == true){
+        // pop element from the second stack (right)
+            if (top2 <= maxSize/2) {
+                temp = array[top2];
+                top2 ++;
+
+            }else{
+                System.out.println("Stack Underflow");
+            }
+            return temp;
+
+        }else{
+            return temp;
+        }
+
     }
     
     /** Return the last element on the stack <p/>
