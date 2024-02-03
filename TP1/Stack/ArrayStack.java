@@ -66,5 +66,4 @@ public class ArrayStack<E> implements Stack {
         return sb.toString();
     }
 
-
 }
