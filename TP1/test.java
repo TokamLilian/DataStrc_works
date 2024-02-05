@@ -1,22 +1,25 @@
 // test without autograder
 import Stack.ArrayStack;
 import DoubleStack.ArrayDoubleStack;
+import SpecialStack.ArraySpecialStack;
 
 public class test {
 
     public static void main(String[] args) {
-        ArrayStack_Test();
-        ArrayDoubleStack_Test();
-    }
+        // ArrayStack_Test();
+        // ArrayDoubleStack_Test();
+        ArraySpecialStack_Test();
+        }
     
+
     public static void ArrayStack_Test () {
         System.out.println("Running tests on ArrayStack:");
         ArrayStack<Integer> newSimpleArray = new ArrayStack<>();
-        insertAndPopSS(newSimpleArray);
-        topAndSizeSS(newSimpleArray);
+        insertAndPopS(newSimpleArray);
+        topAndSizeS(newSimpleArray);
     }
     
-    public static void insertAndPopSS (ArrayStack<Integer> stack) {
+    public static void insertAndPopS (ArrayStack<Integer> stack) {
         try{
             for (int i=0;i<6;i++) {
                 int randNum = (int)(Math.random()*9 + 1);
@@ -40,7 +43,7 @@ public class test {
        
     }    
 
-    public static void topAndSizeSS(ArrayStack<Integer> stack) {
+    public static void topAndSizeS(ArrayStack<Integer> stack) {
         System.out.println("\n");
         System.out.println("Size of stack is " + stack.size());
         
@@ -51,6 +54,7 @@ public class test {
         }
         
     }
+
 
     public static void ArrayDoubleStack_Test () {
         System.out.println("\n"+ "Running tests on ArrayDoubleStack:");
@@ -82,4 +86,48 @@ public class test {
         doubleArray.print();
     }
 
+    
+    public static void ArraySpecialStack_Test () {
+        pushAndPopSS();
+    }
+
+    public static void pushAndPopSS() {
+        ArraySpecialStack<Integer> stack = new ArraySpecialStack<>();
+        
+        stack.Push(3);
+        stack.Push(5);
+        stack.Push(2);
+        stack.Push(7);
+
+        try{
+            System.out.println("Maximum element: " + stack.getMax());
+
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        
+        stack.Pop();
+        try{
+            System.out.println("Maximum element after pop: " + stack.getMax());
+
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }    
+
+        stack.Pop();
+        try{
+            System.out.println("Maximum element after second pop: " + stack.getMax());
+            
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+
+        stack.Pop();
+        try{
+            System.out.println("Maximum element after third pop: " + stack.getMax());
+            
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
 }
