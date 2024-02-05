@@ -1,57 +1,73 @@
 package SpecialStack;
 
-public class ArraySpecialStack implements SpecialStack{
-    private int maxSize = 100;
-    private int topOfStack;           // index of the top item in the array
-    private int[] theArray;          // reference to the array of items
+public class ArraySpecialStack<E extends Comparable<E>> implements SpecialStack<E> {
+    private final int maxSize = 100;
+    private int topOfStack;             // index of the top item in the array
+    private Object[] theArray;          // reference to the array of items
+    private Object[] maxStack;          // Stack to store maximum elements
     
-    public ArraySpecialStack(int size) {
+    public ArraySpecialStack() {
 
-        if (size < 1) throw new RuntimeException("Stack must contain at least one element");
-        maxSize = size;
         topOfStack = -1;
-        theArray = new int[maxSize];
+        theArray = new Object[maxSize];
+        maxStack = new Object[maxSize];
     }
 
     @Override
-    public int getMax() throws StackEmptyException {
+    public E getMax() throws StackEmptyException {
         // returns the maximum element stored in the array
-        int max = theArray[0];
-        if (!isEmpty()){
-            for (int i=1; i<=topOfStack; i++){
-                if (theArray[i] > max){
-                    max = theArray[i];
-                }    
-            }
-
-        }else{
+        if (isEmpty()){
             throw new StackEmptyException("Empty stack:  can't retrieve max value");
-        }
-        
+        }  
+
+        @SuppressWarnings("unchecked")
+        E max = (E) maxStack[topOfStack];
         return max;
 
     }
     
-    /**  Push 'it' onto the stack. If the stack is already full, do nothing.*/
-    public void Push(int e) {
+    /**  Push 'e' onto the stack. If the stack is already full, do nothing.*/
+    public void Push(E e) {
+        int size = size();
         if (!isFull()) {
             theArray[++topOfStack] = (int) e;
+
+            // update maxStack
+            if (maxStack[0] == null){
+                maxStack[0] = e;
+            }
+            else if (size == 0 || e.compareTo((E) maxStack[topOfStack-1]) > 0){
+                maxStack[size] = e;
+            }else{
+                maxStack[size] = maxStack[topOfStack-1];
+            }
+
         }else{
             throw  new RuntimeException("Stack Full: Can't push");
         }
     }
 
     /**  Take the top item off the stack and return it. If the stack is empty, return nothing*/
-    public int Pop() {
-        int temp = 0;
-        if (!isEmpty()) temp = theArray[topOfStack--];
+    public E Pop() {
+        
+        if (!isEmpty()){
+            @SuppressWarnings("unchecked")
+            E temp = (E) theArray[topOfStack--];
+            theArray[size()] = null;        //for garbage collection
+            
+            // update maxStack
+            if (size() > 0){
+                maxStack[size()] = maxStack[topOfStack];
+            }
+            return temp;
+            
+        }else throw new IllegalStateException("Stack is empty");
 
-        return temp;
     }
 
     /** Return the last element on the stack*/
-    public int Top(){
-        if (!isEmpty()) return theArray[topOfStack];
+    public E Top(){
+        if (!isEmpty()) return (E)theArray[topOfStack];
         else throw new RuntimeException("Stack Empty: There isn't a top element");
     }
     
