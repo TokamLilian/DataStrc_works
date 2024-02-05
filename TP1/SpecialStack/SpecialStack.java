@@ -1,6 +1,6 @@
 package SpecialStack;
 
-public interface SpecialStack{
+public interface SpecialStack<E>{
 
-    public int getMax() throws StackEmptyException;
+    public E getMax() throws StackEmptyException;
 }
