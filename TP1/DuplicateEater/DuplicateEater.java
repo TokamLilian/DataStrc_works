@@ -8,6 +8,7 @@ public class DuplicateEater {
         String[] list1 = {"stack", "list", "list", "queue", "tree" };
         String[] list2 = {"tree", "stack", "stack", "tree" };
         String[] list3 = {"stack", "stck", "stack", "tree" };
+        String[] list4 = {"stak", "stck", "sack", "queue" };
         //ArrayStack<String> stack1 = createArray(list1);
         //System.out.println(pairDestroyer(stack1));
         ArrayStack<String> stack2 = createArray(list1);
@@ -77,46 +78,59 @@ public class DuplicateEater {
         return secondTop; //
     }
 
+    public static ArrayStack<String> destroyer(ArrayStack<String> reducedStack){
+        ArrayStack<String> temp = new ArrayStack<>();
+        String topWord = reducedStack.Pop();
+
+        while (reducedStack.size() > 0) {
+            String nextWord = reducedStack.Pop();
+            
+            if (topWord == nextWord){
+                while (!temp.isEmpty()){
+                    reducedStack.Push(temp.Pop());
+                }
+                return reducedStack;
+            }else{
+                temp.Push(nextWord);
+            }
+        }
+
+        if (temp.size() > 0){
+            while (!temp.isEmpty()){
+                reducedStack.Push(temp.Pop());
+            }
+
+            return reducedStack;
+
+        } else{ 
+            return reducedStack;
+        }
+    }
+
+
     public static int pairDestroyer2(ArrayStack<String> myStack){
         ArrayStack<String> temp = new ArrayStack<>();
 
-        String topWord = myStack.Pop();
-        boolean duplicateFound = false;
-        int iteration = 0;
-        int originalStackSize = myStack.size();
-
-        while (!duplicateFound){
-
-            if (!myStack.isEmpty()){
-
-                String nextWord = myStack.Pop();
-                if (topWord == nextWord){
-
-                    if (myStack.size() == 0) duplicateFound = true;
-
-                    else{
-                        return pairDestroyer2(myStack);
-                    }
-                    
-                }else{
-                    temp.Push(nextWord);
-                }
-
-            }else {
-                // empty temp except the previous topWords from myStack
-                while (temp.size() != iteration){
-                    myStack.Push(temp.Pop());
-                }
-
-                temp.Push(topWord);
-                iteration ++;
+        while (myStack.size() > 0){
                 
-                if (temp.size() == originalStackSize) duplicateFound = true;
-                if (myStack.size() > 0) return pairDestroyer2(myStack);
+            String topWord = myStack.Pop();
+            myStack.Push(topWord);
+            
+            int originalStackSize = myStack.size();
+            myStack = destroyer(myStack);
+
+            if (myStack.size() == originalStackSize - 1)
+            // at condition that topword is NOT a duplicate ie stack size reduced
+                temp.Push(topWord); 
+            
+        }
+
+        if (!temp.isEmpty()){
+            while (!temp.isEmpty()){
+                myStack.Push(temp.Pop());
             }
         }
         return myStack.size();
 
     }
-
 }
