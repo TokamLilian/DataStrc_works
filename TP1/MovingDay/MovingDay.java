@@ -1,4 +1,6 @@
-package strucdonnees;
+package MovingDay;
+
+import Stack.ArrayStack;
 
 public class MovingDay {
 
@@ -9,11 +11,11 @@ public class MovingDay {
 
             // Déplacer une section de Nam à Sam
             if (!nam.isEmpty()) {
-                sam.push(nam.pop());
+                sam.Push(nam.Pop());
             } else {
                 // Si Nam est vide, déplacez une section de Pam à Sam
                 if (!pam.isEmpty()) {
-                    sam.push(pam.pop());
+                    sam.Push(pam.Pop());
                 }
             }
         }
