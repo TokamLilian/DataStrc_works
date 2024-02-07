@@ -5,7 +5,7 @@ import java.util.ArrayList;
 class MistFunction1{
 
     public static void main(String[] args) {
-        mistFunction1(1, 2);
+       System.out.println(mistFunction1(4,3));
     }
     
     public static int mistFunction1(int m, int n) {
@@ -19,7 +19,11 @@ class MistFunction2{
 
     public static List<String> mesPieces;
     public static void main(String[] args) {
-        mistFunction2("1", mesPieces);
+        mesPieces = new ArrayList<>();
+        //add elements to mespieces
+        mesPieces.add("Chambre");
+        mesPieces.add("Salon");
+        System.out.println(mistFunction2("SSalon1", mesPieces));
     }
     
     public static List<List<String>> mistFunction2(String target, List<String> pieces){
@@ -54,7 +58,11 @@ class MistFunction2{
 class MistFunction3{
     static int[] mesOptions;
     public static void main(String[] args) {
-        mistFunction3(1, mesOptions);
+        mesOptions = new int[3];
+        //add elements to mespieces
+        mesOptions[0]= 9;
+        mesOptions[1]= 4;
+        System.out.println(mistFunction3(4, mesOptions));
     }
 
     public static boolean mistFunction3(int target, int[] options) {
