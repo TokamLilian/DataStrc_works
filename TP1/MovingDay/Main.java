@@ -1,13 +1,15 @@
-package strucdonnees;
+package MovingDay;
+
+import Stack.ArrayStack;
 
 public class Main {
     public static void main(String[] args) {
         ArrayStack<String> nam = new ArrayStack<>();
-        nam.push("N1: Agriculture");
-        nam.push("N2: Manufacture");
-        nam.push("N3: Académie");
-        nam.push("N4: Gouvernement");
-        nam.push("N5: Le Roi");
+        nam.Push("N1: Agriculture");
+        nam.Push("N2: Manufacture");
+        nam.Push("N3: Académie");
+        nam.Push("N4: Gouvernement");
+        nam.Push("N5: Le Roi");
 
         ArrayStack<String> pam = new ArrayStack<>();
 
