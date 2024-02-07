@@ -8,7 +8,7 @@ public class unit_test {
         ArrayStack<String> Nam = new ArrayStack<>();
         pushNam(Nam);
         //System.out.println(Nam.toString());
-        System.out.println(Nam.Top());
+        //System.out.println(Nam.Top());
     }
 
     public static void pushNam(ArrayStack<String> stack){
