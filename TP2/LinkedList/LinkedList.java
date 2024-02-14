@@ -2,7 +2,7 @@ package LinkedList;
 
 public class LinkedList implements List<Integer> {   
     private Node tail; // tail of list  
-    private Node head; // tale of list  
+    private Node head; // head of list
     
     /* Constructor to create an empty list */ 
     public LinkedList() {
@@ -54,7 +54,10 @@ public class LinkedList implements List<Integer> {
             retval = retval.getNext();           // Move "retval" to point to the next node.
         }
 
-        if (retval == tail) tail = previous;               // If the removed node was the last one, update the tail.
+        if (retval == tail) {
+            tail = previous;               // If the removed node was the last one, update the tail.
+            tail.setNext(null);
+        }
         else previous.setNext(retval.getNext());           // Cut the link between the two nodes.
 
         if (retval == head) head = retval.getNext();       // If the removed node was the first one, update the head.
@@ -257,6 +260,23 @@ public class LinkedList implements List<Integer> {
 
     /** Sort the list */
     public void insertionSort(){
+        int size = size();
+
+        for (int i=1; i<size; i++){
+            int key = get(i);
+            int j = i-1;
+
+            // Move elements of subarray that are greater than the key, to one position ahead of their current position
+            while (j>=0 && get(j) > key){
+                int nextValue = get(j);
+                remove(j+1);
+                add(j+1, nextValue);
+                j--;
+            }
+
+            remove(j+1);
+            add(j+1, key);
+        }
 
     }
     
@@ -266,7 +286,8 @@ public class LinkedList implements List<Integer> {
      * @param value
      */
     public void addInOrder(int value){
-
+        insertionSort();
+        addLast(value);
     }
     
 }
