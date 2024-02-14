@@ -3,7 +3,7 @@ package LinkedList;
 /*
  * List interface with methods implemented by Lists
  */
-public interface List<Integer> {
+public interface List<T> {
     //void add(int index, int element);
     //void add(int element);
 
