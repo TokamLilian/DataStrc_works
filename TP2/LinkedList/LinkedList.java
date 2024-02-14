@@ -9,6 +9,7 @@ public class LinkedList<Integer> implements List {
         this.tail = new Node(0);
         this.head = new Node(0);
     }  
+
   
     /**  Returns the number of elements in the list. */
     @Override
@@ -20,10 +21,10 @@ public class LinkedList<Integer> implements List {
             current = current.getNext();
         }                            
         return count;  
-    }          
+    } 
+
       
     /** Inserts element at a specific position of the list. */
-    @Override
     public void add(int index, int element) throws IndexOutOfBoundsException{ 
         if (index < 0 || index > size()) throw new IndexOutOfBoundsException();    
         
@@ -53,10 +54,8 @@ public class LinkedList<Integer> implements List {
         } 
     }
 
-    /*
-     * Add item at tail (end) of linkedlist (append).
-     */
-    @Override
+
+    /** Add item at tail (end) of linkedlist (append).*/
     public void add(int element){
         Node node =  new Node(element);
         if (tail.getData() == 0) {                      // If the list is empty, make this node the tail.
@@ -72,8 +71,8 @@ public class LinkedList<Integer> implements List {
         }
     }
 
+
     /** Removes the element at a specific position in the list. */
-    @Override
     public void remove(int index){
         if (index < 0 || index >= size()) throw new IndexOutOfBoundsException();
         
@@ -97,9 +96,7 @@ public class LinkedList<Integer> implements List {
     }
 
 
-    @Override
-    /*
-     * Return the element stored at the given index
+    /** Return the element stored at the given index
      */
     public int get(int index){
         if (index < 0 || index >= size()) throw new IndexOutOfBoundsException("Index out of range: "+index+" Size:"+size());
@@ -114,9 +111,7 @@ public class LinkedList<Integer> implements List {
     }
     
     
-    @Override
-    /*
-     * Return the index of the given element
+    /** Return the index of the given element
      */
     public int getId(int element){
         Node gotNode = head;
@@ -133,6 +128,7 @@ public class LinkedList<Integer> implements List {
         
     }
 
+
     @Override
     public String  toString(){
         StringBuilder sb = new StringBuilder("[");
@@ -148,11 +144,13 @@ public class LinkedList<Integer> implements List {
         return sb.toString();
     }
 
+
     @Override
     public boolean isEmpty() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'isEmpty'");
     }
+
 
     @Override
     public int first() {
@@ -160,17 +158,27 @@ public class LinkedList<Integer> implements List {
         throw new UnsupportedOperationException("Unimplemented method 'first'");
     }
 
+
     @Override
     public int last() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'last'");
     }
 
+
     @Override
-    public void addFirst() {
+    public void addFirst(int value) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'addFirst'");
     }
+
+
+    @Override
+    public void addLast(int value) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'addLast'");
+    }
+
 
     @Override
     public void removeFirst() {
@@ -178,10 +186,62 @@ public class LinkedList<Integer> implements List {
         throw new UnsupportedOperationException("Unimplemented method 'removeFirst'");
     }
 
+
     @Override
-    public void addLast() {
+    public void removeLast() {
         // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'addLast'");
+        throw new UnsupportedOperationException("Unimplemented method 'removeLast'");
+    }
+    
+    
+    /** Return the n-th element from the end backwards */
+    public int returnNlast(int nLast){
+        int temp = 0;
+        
+        return temp;
+    }
+    
+    
+    /**
+     * Returns true if the given element is in the list
+     * @param value
+     * @return true or false
+     */
+    public boolean checkInList(int value){
+        return true;
+    }
+
+
+    /** Recursive method to remove an element present in the list */
+    public void removeValue(int value){
+
+    }
+
+
+    /**
+     * Returns the maximum element stored in the list by recursion
+     * @return
+     */
+    public int maxValue(){
+        int temp = 0;
+
+        return temp;
+
+    }
+
+
+    /** Sort the list */
+    public void insertionSort(){
+
+    }
+    
+
+    /**
+     * Recursively add a given element in an ordered list
+     * @param value
+     */
+    public void addInOrder(int value){
+
     }
 
 }
