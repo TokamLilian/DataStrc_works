@@ -11,14 +11,14 @@ public class Main {
     }
 
     public static void addRemoveTest(){
-        LinkedList<Integer> myList = new LinkedList<>();
+        LinkedList myList = new LinkedList();
     
         //Adding elements to the list.
-        myList.add(12);
-        myList.add(7);
-        myList.add(2);
-        myList.add(17);
-        myList.add(1);
+        myList.addLast(12);
+        myList.addLast(7);
+        myList.addLast(2);
+        myList.addLast(17);
+        myList.addLast(1);
         //System.out.println("Original List: " + myList);
         System.out.println("The size is : "  + myList.size());
         System.out.println("Original Linked List : "  + myList.toString());
@@ -36,10 +36,10 @@ public class Main {
     }
 
     public static void getTest(){
-        LinkedList<Integer> stringList = new LinkedList<>();
+        LinkedList stringList = new LinkedList();
 
-        stringList.add(21);
-        stringList.add(8);
+        stringList.addLast(21);
+        stringList.addLast(8);
         stringList.add(1, 9);
 
         try{
