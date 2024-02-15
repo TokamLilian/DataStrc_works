@@ -234,6 +234,9 @@ public class LinkedList implements List<Integer> {
     public void removeValue(int value){
         int retIndex = getId(value);
         remove(retIndex);
+        if (!checkInList(value)) return;
+        else removeValue(value);
+
     }
 
 
@@ -241,19 +244,12 @@ public class LinkedList implements List<Integer> {
      * Returns the maximum element stored in the list by recursion
      * @return
      */
-    public int maxValue(){
-        int maxVal = 0;
-        Node currNode = head;
-        maxVal = currNode.getData();
-
-        while (currNode.getNext() != null){
-            currNode = currNode.getNext();
-            int comparedValue = currNode.getData();
-
-            if (comparedValue > maxVal) maxVal = comparedValue;
-        }
-
-        return maxVal;
+    public int maxValue(int index){
+        
+        if (index == 1) return first();
+        int previous = get(--index);
+        int next = maxValue(index);
+        return (previous >= next) ? previous:next;
 
     }
 
