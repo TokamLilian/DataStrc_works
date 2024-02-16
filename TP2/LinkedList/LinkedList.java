@@ -130,18 +130,21 @@ public class LinkedList implements List<Integer> {
     } 
 
 
+    /** Returns true if the list is empty */
     @Override
     public boolean isEmpty() {
         return (head == tail && head.getData() == 0);
     }
 
 
+    /** Returns the first element of the list */
     @Override
     public int first() {
         return head.getData();
     }
 
 
+    /** Returns the last element of the list */
     @Override
     public int last() {
         return tail.getData();
@@ -177,6 +180,7 @@ public class LinkedList implements List<Integer> {
     }
 
 
+    /** Removes the st element from the list */
     @Override
     public void removeFirst() {
         Node temp = head.getNext();
@@ -187,6 +191,7 @@ public class LinkedList implements List<Integer> {
     }
 
 
+    /** Removes the st element from the list */
     @Override
     public void removeLast() {
         int size = size();
