@@ -41,16 +41,16 @@ public class Main {
         stringList.addLast(21);
         stringList.addLast(8);
         stringList.add(1, 9);
-
+        System.out.println("Original Linked List : "  + stringList.toString());
         try{
-            int requiredItem = stringList.get(10);
+            int requiredItem = stringList.get(1);
             System.out.println("Retrieved Item: " + requiredItem);
         }catch (Exception e){
             printError(e);
         }
             
         try{
-            int itemIndex = stringList.get(21);
+            int itemIndex = stringList.get(2);
             System.out.println("Retrieved index: " + itemIndex);
 
         }catch (Exception e){
