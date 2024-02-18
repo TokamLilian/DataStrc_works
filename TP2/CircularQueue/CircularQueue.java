@@ -84,9 +84,25 @@ public class CircularQueue<Integer> {
         return true;
     }
 
+    /**
+     * Removes the first occurance of a given value
+     * @param value : The integer whose first occurance will be removed
+     * @param index : The index from which to start from (can be front or rear)
+     */
+    public void remove(int value, int index){
+        if(!checkInQueue(value)) return;        //If it's not there, do nothing
+        int current = queue[index];
+        
+        if (current == value){    
+            while (index >= front || index < rear) {
+                queue[index] = queue[(index - 1 + maxSize)%maxSize];   //Move everything one step forward
+                index = (index - 1 + maxSize)%maxSize;                                                
+            }
 
-    public void remove(int value){
-
+            front = (front + 1) %maxSize;                                 //Increase the front
+            return;
+        }
+        remove(value, (index +1) %maxSize);
     }
 
 
