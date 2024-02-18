@@ -75,13 +75,36 @@ public class CircularQueue<Integer> {
     }
 
 
+    /** Reverse the order of the Circular Queue */
     public void reverse(){
+        int temp;
+        int newFront = front;
+        int newRear = rear-1;
+        int size = size();
+
+        for (int i=0; i < size/2; i++){
+            temp = queue[newFront];
+            queue[newFront] = queue[newRear];
+            queue[newRear] = temp;
+
+            newFront = (newFront + 1) %maxSize;
+            newRear = (newRear - 1 + maxSize) %maxSize;
+        }
 
     }
 
-
+    /**
+     * Returns true if the given value is present in the queue
+     * @param value
+     * @return : True or False
+     */
     public boolean checkInQueue(int value){
-        return true;
+        int index = front;
+        while (index >= front || index < rear){
+            if (queue[index] == value) return true;
+            index = (index + 1) %maxSize;
+        }
+        return false;
     }
 
     /**
