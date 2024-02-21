@@ -98,7 +98,7 @@ public class ArrayDoubleStack<E> implements DoubleStack{
      * @author Lilian Tokam
     */
     public E Top(boolean arr){
-        E temp;
+        
         if (arr == false) return (E) array[top2];
         else if (arr == true) return (E) array[top1];
         else throw new IllegalArgumentException();
