@@ -14,6 +14,30 @@ public class CircularQueue<Integer> {
 
     }
      
+
+    /** Returns the element at a given position of the queue */
+    public int get(int index){
+        if (index < front && index >= rear) throw new IndexOutOfBoundsException("Index out of range");
+        return queue[index];
+
+    }
+
+
+    /**
+     * Sets the element at the index on the grid to a new value in the queue
+     * @param neighboor
+     * @param i
+     */
+    public void set(int neighboor, int i) {
+        int index = (maxSize/2 + neighboor) %maxSize;       // the corresponding index on the queue
+        queue[index] = i;
+    }
+
+
+    public int getFrontIndex(){
+        return front;
+    }
+
     
     /** Returns the size of the queue */
     public int size() {
