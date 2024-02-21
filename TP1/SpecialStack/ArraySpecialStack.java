@@ -30,7 +30,7 @@ public class ArraySpecialStack<E extends Comparable<E>> implements SpecialStack<
     public void Push(E e) {
         int size = size();
         if (!isFull()) {
-            theArray[++topOfStack] = (int) e;
+            theArray[++topOfStack] = e;
 
             // update maxStack
             if (maxStack[0] == null){
