@@ -3,20 +3,44 @@ package MovingDay;
 import Stack.ArrayStack;
 
 public class MovingDay {
-    private static int day = 0;
 
-    public static void printProgressCity(String city, String layer) {
-        System.out.println(city + "(" + layer + ")");
+    public static void printProgressCity(String cityName, ArrayStack<String> city) {
+        if (!city.isEmpty()) System.out.println(cityName + "(" + city.Top() + ")");
+        else System.out.println(cityName + "(None)");
     }
 
-    public static void move(ArrayStack<String> Nam){
-        ArrayStack<String> Mam = new ArrayStack<>();
-        ArrayStack<String> Sam = new  ArrayStack<>();
+    /**
+     * Moving sections from "Nam" city to "Sam" city using and intermediary city "Mam"
+     * @param Nam
+     * @param Mam
+     * @param Sam
+     * @param day
+     */
+    public static void move(ArrayStack<String> Nam, ArrayStack<String> Mam, ArrayStack<String> Sam, int day){
+        int originalSize = Nam.size();
+        for (int  i = 0; i < day; i++) {
+            if (!Nam.isEmpty()) {
+                Mam.Push(Nam.Pop());
 
-        System.out.println("Day " + day + ":");
-        printProgressCity("Nam", Nam.Pop());
-        printProgressCity("Sam", Sam.Pop());
-        printProgressCity("Mam", Mam.Pop());
+            }else if (!Mam.isEmpty()) {
+                Sam.Push(Mam.Pop());
+            }
+
+            System.out.println("Day " + i + ":");
+            printProgressCity("Nam", Nam);
+            printProgressCity("Mam", Mam);
+            printProgressCity("Sam", Sam);
+        }
+
+        String msg;
+        if (!Nam.isEmpty() && Sam.size() == originalSize){
+            msg = "<POSSIBLE>";
+        } else{
+            msg = "<NOT POSSIBLE>";
+            int remaingDays = day + Mam.size();
+            System.out.println(remaingDays + " days are required, hence");
+            
+        } System.out.println(msg);
 
     }
 
