@@ -7,9 +7,6 @@ public class ArrayDoubleStack<E> implements DoubleStack{
 
     public ArrayDoubleStack() {
 
-        //if (n < 1) throw new IllegalArgumentException("Size must be positive integer");
-        //maxSize = n;
-
         top1 = maxSize/2; 
         top2 = maxSize/2 + 1; 
         array = new Object[maxSize];

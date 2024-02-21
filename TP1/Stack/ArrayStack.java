@@ -7,7 +7,6 @@ public class ArrayStack<E> implements Stack {
 
     public ArrayStack() {
 
-        //if (s < 1) throw new RuntimeException("Stack must be at least one element");
         topOfStack = -1;
         theArray = new Object[maxSize];
     }
@@ -50,12 +49,12 @@ public class ArrayStack<E> implements Stack {
         return (topOfStack == -1);
     }
 
-    // return true if the stack is full.
+    /** return true if the stack is full. */
     public boolean isFull() {
         return (topOfStack == maxSize - 1);
     }
 
-    // return a string representation of the contents of the stack.
+    /** return a string representation of the contents of the stack. */
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
