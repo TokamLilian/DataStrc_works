@@ -22,3 +22,12 @@
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 replay_pid*
+.vscode/launch.json
+TP1/readMe.txt
+.gitignore
+TP1/DoubleStack/Main.java
+TP1/SpecialStack/Main.java
+TP1/Stack/Main.java
+TP2/LinkedList/test.java
+TP2/CircularQueue/Ruby/Main.rb
+TP2/CircularQueue/Ruby/Queue.rb
