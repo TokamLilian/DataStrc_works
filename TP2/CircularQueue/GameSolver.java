@@ -21,8 +21,8 @@ public class GameSolver {
 
     private static void loadTextFile(CircularQueue<Integer> queue){
         Scanner scan;
-        //String filePath = "sample.txt"; // for submission
-        String filePath = "TP2\\CircularQueue\\sample.txt";
+        String filePath = "sample.txt"; // for submission
+        //String filePath = "TP2\\CircularQueue\\sample.txt";  //what is used in my IDE
         int lineNumber = 0;
         try {
             scan = new Scanner(new File(filePath));
@@ -43,8 +43,6 @@ public class GameSolver {
                         }
 
                     }
-
-                    //System.out.println(line);	
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -81,7 +79,7 @@ public class GameSolver {
                             int queueNeighboor = (neighboor + maxSize/2) %maxSize;
                             if (queue.get(queueNeighboor) == 1){
                                 queue.set(queueNeighboor, 2);                    // all 1's are contaminated to zombies 
-                                if(!countedForCurrentLine) count++;
+                                if(!countedForCurrentLine){ count++;System.out.println(count);queue.print();}
                                 countedForCurrentLine = true;
                             }
                         }
@@ -89,14 +87,14 @@ public class GameSolver {
                 } 
                 
             }catch (IndexOutOfBoundsException e) {
-                return play(queue);                                        //restart to check the list again
+                queueIndex = 0;                                        //restart to check the list again
             }
 
-            queue.print();
             queueIndex = (queueIndex + 1) %maxSize;
             startIndex ++;
-            if (startIndex /columns != currentLine)countedForCurrentLine = false;           //moving to the next line makes it possible to count number of contamination iterations
+            if (startIndex /columns != currentLine){countedForCurrentLine = false;}           //moving to the next line makes it possible to count number of contamination iterations
             currentLine = startIndex / columns;
+            
         }
 
         return count;
@@ -115,6 +113,7 @@ public class GameSolver {
 
         while (queue.checkInQueue(1)){
             try {   
+                if (startIndex > rows*columns) return true;              //if we have checked all cells, then it is done
                 if (queue.get(queueIndex) == 1){
                     
                     int [] neighboors = getNeighboors(queue, startIndex);
