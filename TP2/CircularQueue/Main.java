@@ -3,7 +3,7 @@ package CircularQueue;
 public class Main {
     
     public static void main(String[] args) {
-        CircularQueue<Integer> myQueue = new CircularQueue<>();
+        CircularQueue<Integer> myQueue = new CircularQueue<Integer>();
         testQueueing(myQueue);
     }
 
@@ -16,6 +16,10 @@ public class Main {
         queue.enqueue(7);
         queue.enqueue(9);
 
+        //queue.remove(9, 5);
+        //queue.reverse();
+        //queue.checkInQueue(9);
+        
         System.out.println("Size is: " + queue.size());
         queue.print();
         System.out.println("\nFront of queue: " + queue.front());

@@ -11,7 +11,12 @@ public class GameSolver {
     public static void main(String[] args) {
         CircularQueue<Integer> queue = new CircularQueue<Integer>();
         loadTextFile(queue);
-        play(queue);
+        int count = play(queue);
+        if(count == -1){
+            System.out.println("Remaining uncontaminated");
+        }else{
+            System.out.println("Everyone contaminated in " + count + " turns.");
+        }
     }
 
     private static void loadTextFile(CircularQueue<Integer> queue){
@@ -53,46 +58,86 @@ public class GameSolver {
         }
     }
 
-    public static void start(CircularQueue<Integer> queue){
-        int [] tab = {0,1,2,1,2,0,2,1,1}; 
-        
-        for (int i = 0; i<tab.length; i++){
-            queue.enqueue(tab[i]);
-        }
-
-        play(queue);
-    }
-
     public static int play(CircularQueue<Integer> queue){
 
         int count = 0;                                            // the number of iterations taken to do all contaminations
         int maxSize = queue.getMaxSize();
-        int startIndex = 0;
+        int startIndex = 0;                                       // Index of element on the grid (inorder to get the neighboors)
         int queueIndex = queue.getFrontIndex();
+        boolean countedForCurrentLine = false;
+        int currentLine = 0;
 
         while (queue.checkInQueue(1)){                      // the game continues if there are still possible contaminations
-            if (queue.get(queueIndex) == 2){                      // we proceed if the current element on the queue is a zombie
-
-                int [] neighboors = getNeighboors(queue, startIndex);
+            if (isDone(queue)) return -1;
+            
+            try {
                 
-                for (int neighboor : neighboors){
-                    if (neighboor != -1){ 
-                        int queueNeighboor = (neighboor + maxSize/2) %maxSize;
-                        if (queue.get(queueNeighboor) == 1){
-                            queue.set(queueNeighboor, 2);                    // all 1's are contaminated to zombies 
+                if (queue.get(queueIndex) == 2){                      // we proceed if the current element on the queue is a zombie
+                    
+                    int [] neighboors = getNeighboors(queue, startIndex);
+                    
+                    for (int neighboor : neighboors){
+                        if (neighboor != -1){ 
+                            int queueNeighboor = (neighboor + maxSize/2) %maxSize;
+                            if (queue.get(queueNeighboor) == 1){
+                                queue.set(queueNeighboor, 2);                    // all 1's are contaminated to zombies 
+                                if(!countedForCurrentLine) count++;
+                                countedForCurrentLine = true;
+                            }
                         }
                     }
-                }
-                count++;
+                } 
+                
+            }catch (IndexOutOfBoundsException e) {
+                return play(queue);                                        //restart to check the list again
             }
 
+            queue.print();
             queueIndex = (queueIndex + 1) %maxSize;
             startIndex ++;
+            if (startIndex /columns != currentLine)countedForCurrentLine = false;           //moving to the next line makes it possible to count number of contamination iterations
+            currentLine = startIndex / columns;
         }
 
         return count;
     }
 
+    /**
+     * Returns false if there are still possible contaminations
+     * and true otherwise, that is 
+     * every present '1' is immunitized (surrounded by '0's)
+     * @return
+     */
+    public static boolean isDone(CircularQueue<Integer> queue){
+        int maxSize = queue.getMaxSize();
+        int startIndex = 0;     
+        int queueIndex = queue.getFrontIndex();
+
+        while (queue.checkInQueue(1)){
+            try {   
+                if (queue.get(queueIndex) == 1){
+                    
+                    int [] neighboors = getNeighboors(queue, startIndex);
+                    for (int neighboor : neighboors){
+                        if (neighboor != -1){ 
+                            int queueNeighboor = (neighboor + maxSize/2) %maxSize;
+                            int neighboorElement = queue.get(queueNeighboor);
+                            if (neighboorElement == 1 || neighboorElement == 2 ){
+                                return false;                   // we return false as there is atleast one '1' not surrounded by '1' or '2's
+                            }
+                        }
+                    }
+                
+            
+                }
+            } catch (IndexOutOfBoundsException e) {
+                return true;  
+            }
+            startIndex ++;
+            queueIndex = (queueIndex + 1) %maxSize;
+        }
+        return true;
+    }
 
     /**
      * Returns an array containing the neighboors of an index on the grid
@@ -109,6 +154,6 @@ public class GameSolver {
         if (index > columns*(columns - 1)) down = -1;  else down = index + columns;
 
         int [] neighboors = {left, right, up, down};
-        return neighboors ;
+        return neighboors;
     }
 }

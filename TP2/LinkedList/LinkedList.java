@@ -287,8 +287,8 @@ public class LinkedList implements List<Integer> {
      * @param value
      */
     public void addInOrder(int value){
-        insertionSort();
         addLast(value);
+        insertionSort();
     }
     
 }

@@ -3,7 +3,7 @@ package CircularQueue;
 public class CircularQueue<Integer> {
     
     private int [] queue;
-    private final int maxSize = 10;
+    private final int maxSize = 100;
     private int front;
     private int rear;
 
@@ -16,7 +16,7 @@ public class CircularQueue<Integer> {
      
 
     /** Returns the element at a given position of the queue */
-    public int get(int index){
+    public int get(int index) throws IndexOutOfBoundsException{
         if (index < front && index >= rear) throw new IndexOutOfBoundsException("Index out of range");
         return queue[index];
 
@@ -34,8 +34,7 @@ public class CircularQueue<Integer> {
      * @param i
      */
     public void set(int neighboor, int i) {
-        int index = (maxSize/2 + neighboor) %maxSize;       // the corresponding index on the queue
-        queue[index] = i;
+        queue[neighboor] = i;
     }
 
 
@@ -95,7 +94,7 @@ public class CircularQueue<Integer> {
         int index = front;
         int current = queue[index];
 
-        while (current != 0) {
+        while (index >= front && index < rear) {
             System.out.print(current + " ");
             index = (index + 1) %maxSize;
             current = queue[+index];
@@ -156,6 +155,5 @@ public class CircularQueue<Integer> {
         }
         remove(value, (index +1) %maxSize);
     }
-
 
 }
