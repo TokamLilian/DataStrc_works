@@ -13,16 +13,18 @@ public class GameSolver {
         loadTextFile(queue);
         int count = play(queue);
         if(count == -1){
+            queue.print();
             System.out.println("Remaining uncontaminated");
         }else{
+            queue.print();
             System.out.println("Everyone contaminated in " + count + " turns.");
         }
     }
 
     private static void loadTextFile(CircularQueue<Integer> queue){
         Scanner scan;
-        String filePath = "sample.txt"; // for submission
-        //String filePath = "TP2\\CircularQueue\\sample.txt";  //what is used in my IDE
+        //String filePath = "sample.txt"; // for submission
+        String filePath = "TP2\\CircularQueue\\sample.txt";  //what is used in my IDE
         int lineNumber = 0;
         try {
             scan = new Scanner(new File(filePath));
@@ -79,7 +81,8 @@ public class GameSolver {
                             int queueNeighboor = (neighboor + maxSize/2) %maxSize;
                             if (queue.get(queueNeighboor) == 1){
                                 queue.set(queueNeighboor, 2);                    // all 1's are contaminated to zombies 
-                                if(!countedForCurrentLine){ count++;System.out.println(count);queue.print();}
+                                //if(!countedForCurrentLine){ count++;System.out.println(count);queue.print();}
+                                if(!countedForCurrentLine)count++;
                                 countedForCurrentLine = true;
                             }
                         }
@@ -111,9 +114,9 @@ public class GameSolver {
         int startIndex = 0;     
         int queueIndex = queue.getFrontIndex();
 
-        while (queue.checkInQueue(1)){
+        //while (queue.checkInQueue(1)){
+        while (startIndex < rows*columns){
             try {   
-                if (startIndex > rows*columns) return true;              //if we have checked all cells, then it is done
                 if (queue.get(queueIndex) == 1){
                     
                     int [] neighboors = getNeighboors(queue, startIndex);
