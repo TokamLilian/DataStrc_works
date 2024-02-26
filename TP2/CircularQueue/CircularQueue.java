@@ -23,6 +23,11 @@ public class CircularQueue<Integer> {
     }
 
 
+    public int getMaxSize(){
+        return maxSize;
+    }
+
+
     /**
      * Sets the element at the index on the grid to a new value in the queue
      * @param neighboor
