@@ -128,7 +128,7 @@ public class CircularQueue<Integer> {
      */
     public boolean checkInQueue(int value){
         int index = front;
-        while (index >= front || index < rear){
+        while (index >= front && index < rear){
             if (queue[index] == value) return true;
             index = (index + 1) %maxSize;
         }
