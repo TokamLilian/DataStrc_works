@@ -17,7 +17,7 @@ public class CircularQueue<Integer> {
 
     /** Returns the element at a given position of the queue */
     public int get(int index) throws IndexOutOfBoundsException{
-        if (index < front && index >= rear) throw new IndexOutOfBoundsException("Index out of range");
+        if ((index-1)%maxSize/2 < (front-1)%maxSize/2 && (index-1)%maxSize/2 >= (rear-1)%maxSize/2) throw new IndexOutOfBoundsException("Index out of range");
         return queue[index];
 
     }
@@ -141,7 +141,7 @@ public class CircularQueue<Integer> {
      * @param index : The index from which to start from (can be front or rear)
      */
     public void remove(int value, int index){
-        if(!checkInQueue(value)) return;        //If it's not there, do nothing
+        if(!checkInQueue(value) || (index-1)%maxSize/2 < (front-1)%maxSize/2 && (index-1)%maxSize/2 >= (rear-1)%maxSize/2) return;        //If it's not there or index out of bounds, do nothing
         int current = queue[index];
         
         if (current == value){    
