@@ -1,12 +1,56 @@
 package CircularQueue;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
 public class GameSolver {
     private static int rows, columns = 3;
     int size = 6;
 
     public static void main(String[] args) {
         CircularQueue<Integer> queue = new CircularQueue<Integer>();
-        start(queue);
+        loadTextFile(queue);
+        play(queue);
+    }
+
+    private static void loadTextFile(CircularQueue<Integer> queue){
+        Scanner scan;
+        //String filePath = "sample.txt"; // for submission
+        String filePath = "TP2\\CircularQueue\\sample.txt";
+        int lineNumber = 0;
+        try {
+            scan = new Scanner(new File(filePath));
+            while (scan.hasNext()) { 
+                String line = scan.nextLine();
+                
+                try {
+                    if (lineNumber > rows) break;
+                    if (lineNumber == 0) {
+                        String [] dimensions = line.split(" ");
+                        rows = Integer.valueOf(dimensions[0]);
+                        columns = Integer.valueOf(dimensions[1]);
+                    }
+                    else if (line.length()-line.length()/2 == columns ){
+                        String [] entries = line.split(" ");
+                        for (String entry : entries){
+                            queue.enqueue(Integer.valueOf(entry));
+                        }
+
+                    }
+
+                    //System.out.println(line);	
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                lineNumber++;
+            }
+
+            scan.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     public static void start(CircularQueue<Integer> queue){
@@ -22,7 +66,7 @@ public class GameSolver {
     public static int play(CircularQueue<Integer> queue){
 
         int count = 0;                                            // the number of iterations taken to do all contaminations
-        int maxSize = 10;
+        int maxSize = queue.getMaxSize();
         int startIndex = 0;
         int queueIndex = queue.getFrontIndex();
 
@@ -33,8 +77,9 @@ public class GameSolver {
                 
                 for (int neighboor : neighboors){
                     if (neighboor != -1){ 
-                        if (queue.get(neighboor) == 1){ // problem with neighboor
-                            queue.set(neighboor, 2);                    // all 1's are contaminated to zombies 
+                        int queueNeighboor = (neighboor + maxSize/2) %maxSize;
+                        if (queue.get(queueNeighboor) == 1){
+                            queue.set(queueNeighboor, 2);                    // all 1's are contaminated to zombies 
                         }
                     }
                 }
