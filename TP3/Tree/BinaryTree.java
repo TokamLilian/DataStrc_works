@@ -1,4 +1,4 @@
-package BinarySearchTree;
+package Tree;
 
 public interface BinaryTree {
     
@@ -12,10 +12,10 @@ public interface BinaryTree {
     public void insert(int key);
 
     /*  Method to get the maximum element of the binary tree */
-    public void getMax();
+    public int getMax();
     
-    /* A recursive function to find a key in the binary tree */
-    boolean search(int key);
+    /* A method to find a key in the binary tree and return the node containing it*/
+    boolean search(int key); //Node search(int key);
 
     /*  Method to remove a node in the binary tree */
     public void remove(int key);
