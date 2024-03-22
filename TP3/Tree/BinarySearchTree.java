@@ -39,7 +39,7 @@ public class BinarySearchTree implements BinaryTree {
     @Override
     public void insert(int key) {
         int max = BSTarray.length;
-        if (size >= max) throw new IllegalStateException("out of bounds");
+        if (size >= max) throw new IllegalStateException("Array is full");
 
         BSTarray[size] = key;
         size++;
@@ -72,9 +72,14 @@ public class BinarySearchTree implements BinaryTree {
             int [] temp = new int[BSTarray.length];
             int i = 0;
             for (int value: BSTarray){
-                if (value != key) temp[i] = value;
-                i++;
+                if (value != key){
+                    temp[i] = value;
+                    i++;
+                }
             }
+            
+            BSTarray = temp;
+            size--;
         }
     }
     
