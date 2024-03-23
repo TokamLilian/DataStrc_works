@@ -6,7 +6,8 @@ public class Main {
         BinarySearchTree bst = new BinarySearchTree();
 
       // Create
-      int[] myArray = {4, 2, 5, 9, 11, 3, 6, 13, 14, 1};
+      //int[] myArray = {4, 2, 5, 9, 11, 3, 6, 13, 14, 1};
+      int[] myArray = {4, 2, 5, 9, 11};
       bst.create(myArray, myArray.length, 12);
 
       // Size
@@ -31,7 +32,6 @@ public class Main {
       bst.remove(50);
 
       // Update
-      // TODO
       Node root = new Node();
       bst.updateBST(root);
 
