@@ -2,7 +2,7 @@ package Tree;
 
 public class BinarySearchTree implements BinaryTree {
 
-    private int[] BSTarray;
+    private Node[] BSTarray;
     private int size;
 
     public BinarySearchTree() {
@@ -19,7 +19,7 @@ public class BinarySearchTree implements BinaryTree {
     public void create (int [] arr, int n, int max){
         if (n > max || n<0 || max<0) throw new IllegalStateException("out of bounds");
         
-        BSTarray = new int[max];
+        BSTarray = new Node[max];
         for (int element : arr){
             insert(element);
         }
@@ -41,7 +41,10 @@ public class BinarySearchTree implements BinaryTree {
         int max = BSTarray.length;
         if (size >= max) throw new IllegalStateException("Array is full");
 
-        BSTarray[size] = key;
+        Node newNode = new Node();
+        newNode.setPriority(key);
+        BSTarray[size] = newNode;
+
         size++;
     }
 
@@ -49,8 +52,10 @@ public class BinarySearchTree implements BinaryTree {
     public int getMax() {
         if (size == 0) throw new IllegalStateException("empty tree");
 
-        int max = BSTarray[0];
-        for (int key : BSTarray){
+        int max = BSTarray[0].getPriority();
+        for (Node node : BSTarray){
+            if (node == null) break;
+            int key = node.getPriority();
             if (key >= max) max = key;
         }
 
@@ -59,7 +64,9 @@ public class BinarySearchTree implements BinaryTree {
 
     @Override
     public boolean search(int key) {
-        for (int value : BSTarray){
+        for (Node node : BSTarray){
+            if (node == null) break;
+            int value = node.getPriority();
             if (value == key) return true;
         }
         return false;
@@ -69,11 +76,13 @@ public class BinarySearchTree implements BinaryTree {
     public void remove(int key) {
         if (search(key)){
             
-            int [] temp = new int[BSTarray.length];
+            Node [] temp = new Node[BSTarray.length];
             int i = 0;
-            for (int value: BSTarray){
+            for (Node node: BSTarray){
+                if (node == null) break;
+                int value = node.getPriority();
                 if (value != key){
-                    temp[i] = value;
+                    temp[i] = node;
                     i++;
                 }
             }
@@ -85,8 +94,16 @@ public class BinarySearchTree implements BinaryTree {
     
     /* Edit the binary search tree such that each node's key contains the sum of all it's superior keys */
     public void updateBST(Node root){
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'remove'");
+        int [] temp = this.copyArray();
+        for (Node nodeToBeChanged : BSTarray){
+            if (nodeToBeChanged == null) break;
+            int valueToBeChanged = nodeToBeChanged.getPriority();
+
+            for (int comparedValue : temp){
+                if(comparedValue > nodeToBeChanged.getPriority()) valueToBeChanged += comparedValue;
+            }
+            nodeToBeChanged.setPriority(valueToBeChanged);
+        }
 
     }
 
@@ -100,6 +117,19 @@ public class BinarySearchTree implements BinaryTree {
             i++;
         }
         return true;
+    }
+
+    public int[] copyArray(){
+        int[] arr = new int[size];
+        int i = 0;
+        for (Node node : BSTarray){
+            if (node == null) break;
+            arr[i] = node.getPriority();
+            i++;
+        }
+
+        return arr;
+
     }
     
 }
