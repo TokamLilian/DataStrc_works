@@ -60,6 +60,10 @@ public class Node {
         priority = p;
     }
 
+    public void setValue(int v){
+        value = v;
+    }
+
     public void addChild(Node childNode){
         if (leftChild == null) leftChild = childNode;
         else if (rightChild == null) rightChild = childNode;
