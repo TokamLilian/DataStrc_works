@@ -4,10 +4,12 @@ public class BinarySearchTree implements BinaryTree {
 
     private Node[] BSTarray;
     private int size;
+    private int point;
 
     public BinarySearchTree() {
         BSTarray = null;
         size = 0;
+        point = 0;
         
     }
 
@@ -43,6 +45,8 @@ public class BinarySearchTree implements BinaryTree {
 
         Node newNode = new Node();
         newNode.setPriority(key);
+        
+        if (size > 0) BSTarray[size - 1].addChild(newNode);                 // Add reference of new node to the previous node
         BSTarray[size] = newNode;
 
         size++;
@@ -81,9 +85,12 @@ public class BinarySearchTree implements BinaryTree {
             for (Node node: BSTarray){
                 if (node == null) break;
                 int value = node.getPriority();
+                node.removeChild(node.getLeft()); 
                 if (value != key){
+                    if (i>0) temp[i-1].addChild(node);                           // add reference of next node
                     temp[i] = node;
                     i++;
+                }else{
                 }
             }
             
@@ -94,17 +101,15 @@ public class BinarySearchTree implements BinaryTree {
     
     /* Edit the binary search tree such that each node's key contains the sum of all it's superior keys */
     public void updateBST(Node root){
-        int [] temp = this.copyArray();
-        for (Node nodeToBeChanged : BSTarray){
-            if (nodeToBeChanged == null) break;
-            int valueToBeChanged = nodeToBeChanged.getPriority();
+        if (root == null) return;
+        int [] temp = copyArray();  // TODO: use back looping
+        int valueToBeChanged = root.getPriority();
 
-            for (int comparedValue : temp){
-                if(comparedValue > nodeToBeChanged.getPriority()) valueToBeChanged += comparedValue;
-            }
-            nodeToBeChanged.setPriority(valueToBeChanged);
+        for (int comparedValue : temp){
+            if(comparedValue > root.getPriority()) valueToBeChanged += comparedValue;
         }
-
+        root.setPriority(valueToBeChanged);
+        updateBST(root.getLeft());
     }
 
     /* checks if the two arrays containing keys for a binary search tree define the same binary search tree */
@@ -119,7 +124,11 @@ public class BinarySearchTree implements BinaryTree {
         return true;
     }
 
-    public int[] copyArray(){
+    public Node getFirst(){
+        return BSTarray[0];
+    }
+
+    private int[] copyArray(){
         int[] arr = new int[size];
         int i = 0;
         for (Node node : BSTarray){
@@ -131,5 +140,27 @@ public class BinarySearchTree implements BinaryTree {
         return arr;
 
     }
+
+    public void deleteTop(){
+        BSTarray[0] = BSTarray[size-1];
+        BSTarray[size-1] = null;
+        size--;
+    }
+
+    public void add(Node newNode){
+        int max = BSTarray.length;
+        if (size >= max) throw new IllegalStateException("Array is full");
+
+        BSTarray[size] = newNode;
+        size++;
+    }
+
+    public void UpdateValues(int diceValue){
+        point += diceValue;
+    }
     
+
+    public void BuilHeap(){
+
+    }
 }
