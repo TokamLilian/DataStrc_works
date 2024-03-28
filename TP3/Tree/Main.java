@@ -32,7 +32,7 @@ public class Main {
       bst.remove(50);
 
       // Update
-      Node root = new Node();
+      Node root = bst.getFirst();
       bst.updateBST(root);
 
       // areSame
