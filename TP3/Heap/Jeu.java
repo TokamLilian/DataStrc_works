@@ -7,10 +7,11 @@ public class Jeu implements Iterable {
 
     public BinarySearchTree[] heapArray;           // Array of players (trees of cards)
     private int size;
+    private int maxPlayers = 15;                   // Maximum number of players allowed in the game
 
     public Jeu (){
         size = 0;
-        heapArray = new BinarySearchTree[10];       // 10 players initial maximum capacity
+        heapArray = new BinarySearchTree[maxPlayers];       // 10 players initial maximum capacity
 
     }
 

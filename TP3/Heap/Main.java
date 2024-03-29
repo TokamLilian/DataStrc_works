@@ -5,17 +5,17 @@ import Tree.BinarySearchTree;
 public class Main {
     private static Jeu game1 = new Jeu();
     
-    private static int manches = 2;
-    private static int maxCards = 6;
-    private static int maxPoints = 15;
+    private static int manches = 30;
+    private static int maxCards = 20;
+    private static int maxPoints = 10;
 
     public static void main(String[] args) {
         start();
     }
 
     private static void start() {
-        int[] array1 = {2, 5, 3};
-        int[] array2 = {6, 11, 1};
+        int[] array1 = {2, 6, 1, 7};
+        int[] array2 = {5, 11, 3, 2};
 
         try {
             createPlayer(array1);
@@ -25,7 +25,12 @@ public class Main {
         }
 
         tour(0);
-        play();
+
+        try {
+            play();
+        } catch (Exception e) {
+            System.out.println(e.getMessage() + "\n");
+        }
 
     }
 
@@ -37,10 +42,11 @@ public class Main {
         player.create(playerArray, len, maxCards);
         player.BuilHeap();
         try {
+            System.out.println(player);
             game1.insert(player);
             
         } catch (Exception e) {
-            System.err.println(e.getMessage());
+            throw e;
         }
     }
 
@@ -51,19 +57,29 @@ public class Main {
     }
 
     public void fusion(Jeu j2){
-        //Jeu [] tournoi;
-        // for all BST player in j2, add the player in game1's heaparray
+
+        for (Object tree : j2){
+            BinarySearchTree player = (BinarySearchTree) tree;
+            try {
+                game1.insert(player);
+                
+            } catch (Exception e) {
+                System.err.println(e.getMessage() + " in the insertion of new player");
+            }
+            tour(0);                     // Build a new heap from new added players
+        }
 
     }
 
     /* Execute the game  */
-    public static void play(){
+    public static void play() throws Exception{
         for (int round = 0; round < manches; round ++ ){
             for (Object tree : game1){
                 BinarySearchTree player = (BinarySearchTree) tree;
+                if(player.size() <= 0 ) throw new Exception("Player has no more card !");
                 int shuffled = shuffleDice();
                 player.UpdateValues(shuffled);
-                if (player.getPoints() >= maxPoints) return;
+                if (player.getPoints() >= maxPoints) throw new Exception("Maximum points reached by " + player +" with " + player.point + " after " + (round+1) + " rounds");
                 player.deleteTop();                     // remove the first element of the tree (played card)
                 player.BuilHeap();                      // rebuild the heap property
             } 
@@ -71,34 +87,44 @@ public class Main {
         }
     }
 
+    public static void heapify(int index){
+        int largest = index;        // Initialize largest as root
+        int l = 2*index + 1;        // Left child of root
+        int r = 2*index + 2;        // right child of root
+        int size = game1.getSize();
+
+        BinarySearchTree[] players = game1.heapArray;
+        if (players[l] == null || players[r] == null) return;
+        // If left child is larger than root
+        if (l < size && players[l].getFirst().priority > players[largest].getFirst().priority)
+            largest = l;
+ 
+        // If right child is larger than largest so far
+        if (r < size && players[r].getFirst().priority > players[largest].getFirst().priority)
+            largest = r;
+ 
+        // If largest is not root
+        if (largest != index) {
+            // swap at position  'largest' with index
+            BinarySearchTree temp = players[index];
+            players[index] = players[largest];
+            players[largest] = temp;
+            
+ 
+            // Recursively heapify the affected sub-tree
+            heapify(largest);
+        }
+    }
+
     /* Build a heap from the highest priorities of each player
      * @params round : the roumd determines which card to look at
     */
     private static void tour(int round){
-        int size = game1.getSize();
-        int startParent = (size/2)-1;
-
-        while (startParent >= 0){
-
-            int index = startParent;
-            BinarySearchTree[] players = game1.heapArray;
-            BinarySearchTree temp = players[index];
-            int childIndex = 2*index + 1;
-
-            while (childIndex < size){
-                // If we have a right child and it's higher than our left child then swap with it
-                if ((players[childIndex+1] != null && players[childIndex].getFirst().value > players[childIndex+1].getFirst().value)) {
-                    childIndex++;// Move to the right child
-                }
-
-                // If the left child is higher or we don't have a right child then we're done with this parent
-                // Swap temp with the smaller of its two children
-                players[index] = players[childIndex];
-                index = childIndex;
-                childIndex = 2*index + 1;
-            }
-            players[index] = temp; // Set the original value in the correct place
-            startParent--;
+        int startIdx = (game1.getSize() / 2) - 1;
+ 
+        // traverse from last non-leaf node to heapify each node
+        for (int index = startIdx; index >= 0; index--) {
+            heapify(index);
         }
 
     }
