@@ -19,19 +19,19 @@ public class Main {
         String[] noms = socialNetwork.liste_nom_dans_ordre(socialNetwork);
         System.out.print("Noms dans l'ordre: ");
         for (String nom : noms) {
-            if (nom != null) {
-                System.out.print(nom + " ");
-            }
+            if (nom == null) break;
+            System.out.print(nom + " ");
+            
         }
         System.out.println();
 
         // Recommandations d'amis
         String[] recommandations = socialNetwork.recommender(socialNetwork, 2);
-        System.out.print("Recommandations d'amis pour Alice: ");
+        System.out.print("Recommandations d'amis pour Bob: ");
         for (String rec : recommandations) {
-            if (rec != null) {
-                System.out.print(rec + " ");
-            }
+            if (rec == null) break;
+            System.out.print(rec + " ");
+            
         }
     }
 }
