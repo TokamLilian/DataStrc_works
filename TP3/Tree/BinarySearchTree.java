@@ -180,31 +180,51 @@ public class BinarySearchTree {
     public void UpdateValues(int diceValue){
         point += diceValue;
     }
-    
 
-    public void BuilHeap(){
-        
-        int startParent = (size/2)-1;
-        while (startParent >= 0){
+    private int leftIndex(int index){
+        return 2*index + 1;
+    }
 
-            int index = startParent;
-            Node temp = BSTarray[index];
-            int childIndex = 2*index + 1;
+    private int rightIndex(int index){
+        return 2*index + 2;
+    }
 
-            while (childIndex < size){
-                // If we have a right child and it's higher than our left child then swap with it
-                if ((BSTarray[childIndex+1] != null && BSTarray[childIndex].value > BSTarray[childIndex+1].value)) {
-                    childIndex++;// Move to the right child
-                }
+    private void swap(int left, int right){
+        Node temp = BSTarray[left];
+        BSTarray[left] = BSTarray[right];
+        BSTarray[right] = temp;
+    }
 
-                // If the left child is higher or we don't have a right child then we're done with this parent
-                // Swap temp with the smaller of its two children
-                BSTarray[index] = BSTarray[childIndex];
-                index = childIndex;
-                childIndex = 2*index + 1;
-            }
-            BSTarray[index] = temp; // Set the original value in the correct place
-            startParent--;
+    public void heapify(int index){
+        int largest = index; // Initialize largest as root
+        int l = leftIndex(index); // Left child of root
+        int r = rightIndex(index); // right child of root
+ 
+        // If left child is larger than root
+        if (l < size && BSTarray[l].priority > BSTarray[largest].priority)
+            largest = l;
+ 
+        // If right child is larger than largest so far
+        if (r < size && BSTarray[r].priority > BSTarray[largest].priority)
+            largest = r;
+ 
+        // If largest is not root
+        if (largest != index) {
+            swap(index, largest);
+ 
+            // Recursively heapify the affected sub-tree
+            heapify(largest);
         }
     }
+
+    public void BuilHeap(){
+        // Index of last non-leaf node
+        int startIdx = (size / 2) - 1;
+ 
+        // traverse from last non-leaf node to heapify each node
+        for (int i = startIdx; i >= 0; i--) {
+            heapify(i);
+        }
+    }
+        
 }
