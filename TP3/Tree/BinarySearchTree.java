@@ -4,7 +4,7 @@ public class BinarySearchTree {
 
     private Node[] BSTarray;
     private int size;
-    private int point;
+    public int point;
 
     public BinarySearchTree() {
         BSTarray = null;
@@ -13,10 +13,10 @@ public class BinarySearchTree {
         
     }
 
-    static class Node{
-        int value;
-        int priority;
-        Node leftChild;
+    public static class Node{
+        public int value;
+        public int priority;
+        public Node leftChild;
     
         public Node(){
             value = 0;
@@ -181,6 +181,28 @@ public class BinarySearchTree {
     
 
     public void BuilHeap(){
+        
+        int startParent = (size/2)-1;
+        while (startParent >= 0){
 
+            int index = startParent;
+            Node temp = BSTarray[index];
+            int childIndex = 2*index + 1;
+
+            while (childIndex < size){
+                // If we have a right child and it's higher than our left child then swap with it
+                if ((BSTarray[childIndex+1] != null && BSTarray[childIndex].value > BSTarray[childIndex+1].value)) {
+                    childIndex++;// Move to the right child
+                }
+
+                // If the left child is higher or we don't have a right child then we're done with this parent
+                // Swap temp with the smaller of its two children
+                BSTarray[index] = BSTarray[childIndex];
+                index = childIndex;
+                childIndex = 2*index + 1;
+            }
+            BSTarray[index] = temp; // Set the original value in the correct place
+            startParent--;
+        }
     }
 }
