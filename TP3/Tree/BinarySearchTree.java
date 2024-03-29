@@ -109,6 +109,8 @@ public class BinarySearchTree {
             
             BSTarray = temp;
             size--;
+        }else{
+            System.out.println("Key " +key + " does not exist in tree");
         }
     }
     

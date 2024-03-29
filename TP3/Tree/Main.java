@@ -20,16 +20,18 @@ public class Main {
       // getMax
       System.out.print("The maximum value in the tree is : " + bst.getMax()+ "\n");
 
-      // Search
-      boolean found = bst.search(10);
-      if (found)
-         System.out.println("Found !");
-      else
-         System.out.println("Not Found");
-
       // Remove
       bst.remove(9);
       bst.remove(50);
+
+      // Search
+      int number = 9;
+      boolean found = bst.search(number);
+      if (found)
+         System.out.println(number + " Found !");
+      else
+         System.out.println(number + " Not Found");
+
 
       // Update
       BinarySearchTree.Node root = bst.getFirst();
