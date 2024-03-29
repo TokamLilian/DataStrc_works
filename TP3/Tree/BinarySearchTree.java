@@ -15,7 +15,9 @@ public class BinarySearchTree implements BinaryTree {
 
     /* 
      * Create a Binary search tree from an array 
-     * @params  ```arr```: the array from which the binary tree is created, ```n```: the size of the array, ```max``` the maximum size of the binary tree
+     * @params  ```arr```: the array from which the binary tree is created, 
+     * ```n```: the size of the array,
+     *  ```max``` the maximum size of the binary tree
      * @ Author Tokam Lilian
      */
     public void create (int [] arr, int n, int max){
@@ -128,6 +130,10 @@ public class BinarySearchTree implements BinaryTree {
         return BSTarray[0];
     }
 
+    public int getPoints(){
+        return point;
+    }
+
     private int[] copyArray(){
         int[] arr = new int[size];
         int i = 0;
@@ -143,6 +149,8 @@ public class BinarySearchTree implements BinaryTree {
 
     public void deleteTop(){
         BSTarray[0] = BSTarray[size-1];
+        BSTarray[0].removeChild(BSTarray[0].getLeft());
+        BSTarray[0].addChild(BSTarray[1]);
         BSTarray[size-1] = null;
         size--;
     }

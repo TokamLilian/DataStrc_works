@@ -60,14 +60,13 @@ public class Main {
         for (int round = 0; round < manches; round ++ ){
             for (Object tree : game1){
                 BinarySearchTree player = (BinarySearchTree) tree;
-                //      compare the priority of each player of game1 to select who plays first
                 int shuffled = shuffleDice();
                 player.UpdateValues(shuffled);
+                if (player.getPoints() >= maxPoints) return;
                 player.deleteTop();                     // remove the first element of the tree (played card)
             } 
             tour(round);
         }
-
     }
 
     /* Build a heap from the highest priorities of each player
