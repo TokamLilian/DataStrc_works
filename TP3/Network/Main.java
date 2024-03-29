@@ -2,20 +2,18 @@ package Network;
 
 public class Main {
     public static void main(String[] args){
-        int tailleArbre = 5; // Taille de l'arbre
-        int tailleAmis = 3; // Taille maximale de la liste d'amis
         ReseauBST socialNetwork = new ReseauBST();
         // Ajouter des utilisateurs
-        socialNetwork.addUser(socialNetwork, 1, "Alice");
-        socialNetwork.addUser(socialNetwork, 2, "Bob");
-        socialNetwork.addUser(socialNetwork, 3, "Charlie");
-        socialNetwork.addUser(socialNetwork, 4, "David");
+        socialNetwork.ajoute_nouvel_utilisateur(socialNetwork, 1, "Alice");
+        socialNetwork.ajoute_nouvel_utilisateur(socialNetwork, 2, "Bob");
+        socialNetwork.ajoute_nouvel_utilisateur(socialNetwork, 3, "Charlie");
+        socialNetwork.ajoute_nouvel_utilisateur(socialNetwork, 4, "David");
 
         // Compter les amis
         System.out.println("Nombre d'amis de Alice: " + socialNetwork.compte_amis(socialNetwork, 1));
 
         // Ajouter un utilisateur à la liste d'amis de tout le monde
-        socialNetwork.ami_de_tout_le_monde(socialNetwork, "Eve");
+        socialNetwork.ami_tout_le_monde(socialNetwork, "Eve");
 
         // Liste des noms dans l'ordre
         String[] noms = socialNetwork.liste_nom_dans_ordre(socialNetwork);

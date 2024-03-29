@@ -13,25 +13,26 @@ public class ReseauBST {
         public int userId;
         public String userName;
         public String[] friends;
+        public int maxFriends = 10;
         public int numFriends = 0;
         public Node leftChild;
 
         public Node(int id) {
             userId = id;
             userName=null;
-            friends = new String[10];
+            friends = new String[maxFriends];
             userId = networkSize++;
         }
 
         public void addFriend(String name) {
-            if (numFriends < 10){
+            if (numFriends < maxFriends){
                 friends[numFriends] = name;
                 numFriends ++;
             }
         }
     }
 
-    public void addUser(ReseauBST tree, int id, String name){
+    public void ajoute_nouvel_utilisateur(ReseauBST tree, int id, String name){
         Node user = new Node(id);
         user.userName = name;
 
@@ -42,12 +43,12 @@ public class ReseauBST {
     }
 
     public Node getUserById(int id){
+        for (int i = 0 ; i < networkSize ; i++){
+            if (network[i].userId == id) return network[i];
+        }
         return null;
     }
     
-    public Node getUserByName(String name){
-        return null;
-    }
 
     public Node [] getNetwork(){
         return network;
@@ -60,7 +61,7 @@ public class ReseauBST {
         return friends.length;
     }
 
-    public void ami_de_tout_le_monde(ReseauBST tree, String name){
+    public void ami_tout_le_monde(ReseauBST tree, String name){
         for (Node user : tree.getNetwork()){
             user.addFriend(name);
         }
@@ -104,7 +105,7 @@ public class ReseauBST {
     public String[] recommender(ReseauBST tree, int id){
         Node[] network = tree.getNetwork();
         Node currentUser = getUserById(id);
-        //String[] users = liste_nom_dans_ordre(tree);
+        
         String[] recomendations = new String[network.length];
         int recomendationsSize = 0;
         
