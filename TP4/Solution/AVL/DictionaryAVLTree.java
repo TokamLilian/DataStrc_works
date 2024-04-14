@@ -25,12 +25,12 @@ class DictionaryAVLTree {
         return (a > b) ? a : b; 
     } 
 
-    AVLNode rightRotate(AVLNode y)  
-    {  
+    /*right rotate subtree rooted with x */
+    AVLNode rightRotate(AVLNode y) {  
         AVLNode x = y.left;  
         AVLNode T2 = x.right;  
   
-        // Perform rotation  
+        //rotation  
         x.right = y;  
         y.left = T2;  
   
@@ -38,32 +38,26 @@ class DictionaryAVLTree {
         y.height = max(height(y.left), height(y.right)) + 1;  
         x.height = max(height(x.left), height(x.right)) + 1;  
   
-        // Return new root  
+        // return new root  
         return x;  
     }  
   
-    // A utility function to left 
-    // rotate subtree rooted with x  
-    // See the diagram given above.  
-    AVLNode leftRotate(AVLNode x)  
-    {  
+    /*left rotate subtree rooted with x */
+    AVLNode leftRotate(AVLNode x) {  
         AVLNode y = x.right;  
         AVLNode T2 = y.left;  
-  
-        // Perform rotation  
+   
         y.left = x;  
         x.right = T2;  
-  
-        // Update heights  
+ 
         x.height = max(height(x.left), height(x.right)) + 1;  
         y.height = max(height(y.left), height(y.right)) + 1;  
   
-        // Return new root  
         return y;  
     }  
 
-    int getBalance(AVLNode N) 
-    {  
+    /* Returns the difference between the heights of left and right children */
+    int getBalance(AVLNode N) {  
         if (N == null)  
             return 0;  
   
@@ -72,7 +66,7 @@ class DictionaryAVLTree {
 
     /* Insert a new word and it's meaning to the dictionary and maintain order */
     private AVLNode insert(AVLNode node, String word, String meaning) {
-        /* 1. Perform the normal BST insertion */
+        /* - Perform the normal BST insertion */
         if(node == null) return (new AVLNode(word, meaning));
 
         if (word.compareTo(node.word) < 0) 
@@ -82,10 +76,10 @@ class DictionaryAVLTree {
         else // Duplicate words not allowed  
             return node;  
   
-        /* 2. Update height of this ancestor node */
+        /* - Update height of this ancestor node */
         node.height = 1 + max(height(node.left), height(node.right));  
   
-        /* 3. Get the balance factor of this ancestor node to check whether this node became unbalanced */
+        /* - Get the balance factor of this ancestor node to check whether this node became unbalanced */
         int balance = getBalance(node);  
   
         // If this node becomes unbalanced
@@ -119,6 +113,7 @@ class DictionaryAVLTree {
         root = insert(root, word, meaning);
     }
     
+    /* Return the bottom */
     AVLNode minValueNode(AVLNode node) {
         AVLNode current = node;
 
