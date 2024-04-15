@@ -25,38 +25,38 @@ class DictionaryAVLTree {
         return (a > b) ? a : b; 
     } 
 
-    /*right rotate subtree rooted with x */
-    AVLNode rightRotate(AVLNode y) {  
-        AVLNode x = y.left;  
-        AVLNode T2 = x.right;  
+    /**right rotate subtree rooted with root */
+    AVLNode rightRotate(AVLNode root) {  
+        AVLNode leftChild = root.left;  
+        AVLNode leftRight = leftChild.right;  
   
         //rotation  
-        x.right = y;  
-        y.left = T2;  
+        leftChild.right = root;  
+        root.left = leftRight;  
   
         // Update heights  
-        y.height = max(height(y.left), height(y.right)) + 1;  
-        x.height = max(height(x.left), height(x.right)) + 1;  
+        root.height = max(height(root.left), height(root.right)) + 1;  
+        leftChild.height = max(height(leftChild.left), height(leftChild.right)) + 1;  
   
         // return new root  
-        return x;  
+        return leftChild;  
     }  
   
-    /*left rotate subtree rooted with x */
-    AVLNode leftRotate(AVLNode x) {  
-        AVLNode y = x.right;  
-        AVLNode T2 = y.left;  
+    /**left rotate subtree rooted with root */
+    AVLNode leftRotate(AVLNode root) {  
+        AVLNode rightChild = root.right;  
+        AVLNode rightLeft = rightChild.left;  
    
-        y.left = x;  
-        x.right = T2;  
+        rightChild.left = root;  
+        root.right = rightLeft;  
  
-        x.height = max(height(x.left), height(x.right)) + 1;  
-        y.height = max(height(y.left), height(y.right)) + 1;  
+        root.height = max(height(root.left), height(root.right)) + 1;  
+        rightChild.height = max(height(rightChild.left), height(rightChild.right)) + 1;  
   
-        return y;  
+        return rightChild;  
     }  
 
-    /* Returns the difference between the heights of left and right children */
+    /** Returns the difference between the heights of left and right children  */
     int getBalance(AVLNode N) {  
         if (N == null)  
             return 0;  
@@ -64,9 +64,9 @@ class DictionaryAVLTree {
         return height(N.left) - height(N.right);  
     }  
 
-    /* Insert a new word and it's meaning to the dictionary and maintain order */
+    /** Insert a new word and it's meaning to the dictionary and maintain order */
     private AVLNode insert(AVLNode node, String word, String meaning) {
-        /* - Perform the normal BST insertion */
+        // - normal insertion
         if(node == null) return (new AVLNode(word, meaning));
 
         if (word.compareTo(node.word) < 0) 
@@ -76,13 +76,13 @@ class DictionaryAVLTree {
         else // Duplicate words not allowed  
             return node;  
   
-        /* - Update height of this ancestor node */
+        // - update the height of parent node
         node.height = 1 + max(height(node.left), height(node.right));  
   
-        /* - Get the balance factor of this ancestor node to check whether this node became unbalanced */
+        // - check if current node became unbalanced by getting balance factor of parent node */
         int balance = getBalance(node);  
   
-        // If this node becomes unbalanced
+        // in case node is unbalanced
 
         // Left Left Case  
         if (balance > 1 && word.compareTo(node.left.word) < 0)  
@@ -104,7 +104,7 @@ class DictionaryAVLTree {
             return leftRotate(node);  
         }  
    
-        /* return the (unchanged) node pointer */
+        /* return the unchanged node pointer */
         return node;
     }
 
@@ -113,7 +113,7 @@ class DictionaryAVLTree {
         root = insert(root, word, meaning);
     }
     
-    /* Return the bottom */
+    /** Return the bottom left element */
     AVLNode minValueNode(AVLNode node) {
         AVLNode current = node;
 
@@ -124,19 +124,19 @@ class DictionaryAVLTree {
         return current;
     }
 
-    /* Remove a word from the dictionary */
+    /** Remove a word from the dictionary */
     private AVLNode delete(AVLNode root, String word) {
         if (root == null) {
             return root;
         }
 
-        if (word.compareTo(root.word) < 0) {
+        if (word.compareTo(root.word) < 0) {            // delete on the left side if wordToDelete is smaller than current word
             root.left = delete(root.left, word);
         } else if (word.compareTo(root.word) > 0) {
             root.right = delete(root.right, word);
         } else {
             if (root.left == null || root.right == null) {
-                AVLNode temp = null;
+                AVLNode temp = null;                    // to compare which child is inexistent
                 if (temp == root.left) {
                     temp = root.right;
                 } else {
@@ -147,7 +147,7 @@ class DictionaryAVLTree {
                     temp = root;
                     root = null;
                 } else {
-                    root = temp;
+                    root = temp;                        // update new root where parent has been deleted
                 }
             } else {
                 AVLNode temp = minValueNode(root.right);
@@ -157,7 +157,7 @@ class DictionaryAVLTree {
         }
 
         if (root == null) {
-            return root;
+            return root;                                // return if root has no child
         }
 
         root.height = Math.max(height(root.left), height(root.right)) + 1;
@@ -194,7 +194,7 @@ class DictionaryAVLTree {
         root = delete(root, word);
     }
     
-    /* Look for the definition of a given word in the dictionary */
+    /** Look for the definition of a given word in the dictionary */
     public String search(AVLNode root, String word) {
         if (root == null) {
             return null;
