@@ -132,6 +132,48 @@ public class Graph <E,T> {
 			}
 		}
 		return graph;
-	}	
+	}
+
+
+	private void addEdge(Vertex<String, String> vertex, Vertex<String, String> vertex2, String label, double weight) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'addEdge'");
+	}
+
+
+	public String isConnected() {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'isConnected'");
+	}
+
+
+    public String isDirected() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'isDirected'");
+    }
+
+
+    public String isCyclic() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'isCyclic'");
+    }
+
+
+    public String connectedComponents() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'connectedComponents'");
+    }
+
+
+    public Vertex<String, String>[] BFS() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'BFS'");
+    }
+
+
+    public Vertex<String, String>[] DFS() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'DFS'");
+    }	
 
 }

@@ -95,4 +95,13 @@ public class Edge <E,T> {
 	public String toString(){
 		return label == null ? String.format("(%s, %s)", v1.toString(),v2.toString()) : String.format("(%s)", label);
 	}
+
+	/**
+	 * Determine the opposite vertex of given vertex in parameter
+	 */
+	public Vertex getOpposite(Vertex<E,T> v){
+		// TODO: Implement getOpposite
+		return v;
+		
+	}
 }

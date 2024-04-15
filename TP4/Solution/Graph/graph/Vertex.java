@@ -102,4 +102,20 @@ public class Vertex <E,T> implements Comparable<Vertex<E,T>>{
 	public String toString(){
 		return String.format("<%s>", data.toString());
 	}
+
+	/**
+	 * Get an array of all neighbors of current vertex
+	 * @return the neighbors of the vertex
+	 */
+	public Vertex<E,T>[] getNeighbors() {
+		// TODO: Implement getNeighbors using Edge.getOpposite()
+		return null;
+		
+	}
+
+	@Override
+	public int compareTo(Vertex<E, T> o) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'compareTo'");
+	}
 }
