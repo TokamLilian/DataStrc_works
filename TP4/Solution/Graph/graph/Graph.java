@@ -134,46 +134,121 @@ public class Graph <E,T> {
 		return graph;
 	}
 
-
-	private void addEdge(Vertex<String, String> vertex, Vertex<String, String> vertex2, String label, double weight) {
+	/**
+	 * Add an edge between two vertices and return the created edge
+	 * @param vertex
+	 * @param vertex2
+	 * @param label
+	 * @param weight
+	 * @return
+	 */
+	private Edge<E,T> addEdge(Vertex<String, String> vertex, Vertex<String, String> vertex2, String label, double weight) {
 		// TODO Auto-generated method stub
 		throw new UnsupportedOperationException("Unimplemented method 'addEdge'");
 	}
 
+	/** Delete an edge*/
+	public void removeEdge(){
 
-	public String isConnected() {
+	}
+
+	/** Delete a vertex v and all its corresponding edges  */
+	public void removeVertex(){
+
+	}
+
+	/** Checks if two vetices are adjacent  */
+	public boolean areAdjacent(Vertex<String, String> v1, Vertex<String, String> v2){
+		return directed;
+
+	}
+	
+	/**
+	 * Verify if the graph is connected
+	 * @return
+	 */	
+	public boolean isConnected() {
 		// TODO Auto-generated method stub
 		throw new UnsupportedOperationException("Unimplemented method 'isConnected'");
 	}
 
-
-    public String isDirected() {
+	/**
+	 * Verify if the graph is directed
+	 * @return
+	 */
+    public boolean isDirected() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'isDirected'");
     }
 
-
-    public String isCyclic() {
+	/**
+	 * Verify if the graph is cyclic
+	 * @return
+	 */
+    public boolean isCyclic() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'isCyclic'");
     }
 
+	/**
+	 * Verifies the number of connected components in the graph
+	 * @return Number of connected vertices
+	 */
+    public int connectedComponents() {
+        int count = 0;
 
-    public String connectedComponents() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'connectedComponents'");
+		@SuppressWarnings("unchecked")
+		Vertex<String, String> [] verticiesArray = (Vertex<String, String>[])vertices_array();
+		for (Vertex<String, String> vertex : verticiesArray){
+			if (vertex.getStatus() == 0){			// if not visited
+				count++;
+				DFS(vertex);
+			}
+		}
+		connectedComponents = count;
+		return count;
     }
 
-
+	/**
+	 * Perform a breadth-first search on the graph
+	 * @return Array of vetices
+	 */
     public Vertex<String, String>[] BFS() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'BFS'");
     }
 
+	/**
+	 * Perform a depth-first search on the graph
+	 * @return Array of vetices
+	 */
+    public Vertex<String, String>[] DFS(Vertex<String, String> vertex) {
+		
+		//if (vertex.getStatus() == 2) return null;// already visited
 
-    public Vertex<String, String>[] DFS() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'DFS'");
+		DoublyLinkedList<Vertex<String, String>> dfs = new DoublyLinkedList<>();
+		vertex.setStatus(2);
+		dfs.add(vertex);
+
+        Vertex<String, String>[] neighbours = vertex.getNeighbors();
+
+		for (Vertex<String, String> next : neighbours){
+			if (next.getStatus() == 0) DFS(next);		// if neighbour is not visited
+		}
+
+		@SuppressWarnings("unchecked")
+		Vertex<String,String>[] dfsArray = new Vertex[vertexList.size()];
+		NodeIterator<Vertex<String,String>> iter = dfs.iterator();
+		int index = 0;
+		while(iter.hasNext())
+			dfsArray[index++] = iter.next();
+
+		return dfsArray;
     }	
+
+	@SuppressWarnings("unchecked")
+	public Vertex<String, String>[] DFS() {
+		return DFS((Vertex<String, String>) vertices_array()[0]);		// Depth first search on first vertex
+	}
 
 }
