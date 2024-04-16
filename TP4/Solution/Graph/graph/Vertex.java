@@ -5,7 +5,7 @@ import graph.doublyLinkedList.Node;
 import graph.doublyLinkedList.NodeIterator;
 
 
-public class Vertex <E,T> implements Comparable<Vertex<E,T>>{
+public class Vertex <E,T> {
 	
 	
 	private E data;
@@ -113,9 +113,4 @@ public class Vertex <E,T> implements Comparable<Vertex<E,T>>{
 		
 	}
 
-	@Override
-	public int compareTo(Vertex<E, T> o) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'compareTo'");
-	}
 }
