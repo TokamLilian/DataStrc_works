@@ -7,6 +7,8 @@ import graph.doublyLinkedList.NodeIterator;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.InputMismatchException;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -214,8 +216,19 @@ public class Graph <E,T> {
 	 * @return Array of vetices
 	 */
     public Vertex<String, String>[] BFS() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'BFS'");
+		Vertex<String, String> root = (Vertex<String, String>) vertices_array()[0];
+        Queue<Vertex<String, String>> queue = new LinkedList<>();
+		queue.add(root);
+
+		while (!queue.isEmpty()){
+			queue.remove();
+			root.setStatus(2);
+			Vertex<String, String>[] neighbours = root.getNeighbors();
+			for (Vertex<String, String> next : neighbours){
+				queue.add(next);
+			}
+		}
+		return (Vertex<String, String>[]) queue.toArray();
     }
 
 	/**
