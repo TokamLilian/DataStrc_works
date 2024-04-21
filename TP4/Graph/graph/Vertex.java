@@ -1,4 +1,4 @@
-package Graph.graph;
+package graph;
 
 import graph.doublyLinkedList.DoublyLinkedList;
 import graph.doublyLinkedList.Node;
