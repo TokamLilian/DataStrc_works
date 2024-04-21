@@ -1,3 +1,4 @@
+package Graph;
 import graph.Graph;
 import graph.Vertex;
 import java.io.FileNotFoundException;
@@ -7,7 +8,8 @@ public class GraphMain {
 	public static void main(String[] args) {
 		try {
 			
-			Graph<String, String> graph = Graph.inParser("STM.txt", true);
+			//Graph<String, String> graph = Graph.inParser("STM.txt", true);
+			Graph<String, String> graph = Graph.inParser("Graph/STM.txt", true);
 			PrintStream fileOut = new PrintStream("./Output.txt");
             System.setOut(fileOut);
 			

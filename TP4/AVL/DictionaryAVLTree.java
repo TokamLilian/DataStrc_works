@@ -1,3 +1,4 @@
+package AVL;
 class AVLNode {
     String word, meaning;
     int height;

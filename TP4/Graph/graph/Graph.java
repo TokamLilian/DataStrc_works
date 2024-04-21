@@ -1,4 +1,4 @@
-package graph;
+package Graph.graph;
 
 
 import graph.doublyLinkedList.DoublyLinkedList;
@@ -151,11 +151,13 @@ public class Graph <E,T> {
 
 	/** Delete an edge*/
 	public void removeEdge(){
+		// TODO Auto-generated method stub
 
 	}
 
 	/** Delete a vertex v and all its corresponding edges  */
 	public void removeVertex(){
+		// TODO Auto-generated method stub
 
 	}
 

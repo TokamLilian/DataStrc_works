@@ -1,4 +1,4 @@
-package graph.doublyLinkedList;
+package Graph.graph.doublyLinkedList;
 
 
 public class Node<E>{

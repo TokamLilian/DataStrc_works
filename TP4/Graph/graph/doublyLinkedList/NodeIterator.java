@@ -1,4 +1,4 @@
-package graph.doublyLinkedList;
+package Graph.graph.doublyLinkedList;
 
 
 public interface NodeIterator <E> {
