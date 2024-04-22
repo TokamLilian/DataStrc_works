@@ -144,20 +144,43 @@ public class Graph <E,T> {
 	 * @param weight
 	 * @return
 	 */
-	private Edge<E,T> addEdge(Vertex<String, String> vertex, Vertex<String, String> vertex2, String label, double weight) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'addEdge'");
+	private Edge<E,T> addEdge(Vertex<E, T> vertex, Vertex<E, T> vertex2, String label, double weight) {
+
+		Edge<E,T> newEdge = new Edge(vertex, vertex2);
+		newEdge.setLabel((T) label);
+		newEdge.setWeight(weight);
+		
+		Node<Edge<E,T>> node = edgeList.add(newEdge);
+		newEdge.setPosition(node);
+		return newEdge;
 	}
 
 	/** Delete an edge*/
-	public void removeEdge(){
-		// TODO Auto-generated method stub
+	public void removeEdge(Vertex<E, T> vertex, Vertex<E, T> vertex2){
+		Node<Edge<E, T>> edgeToBeDeleted = null;
+
+		// Edge<E, T>[] allEdges = edges_array();
+		// for(Edge<E,T> edge : allEdges) {
+		// 	if(edge.getV1() == vertex && edge.getV2() == vertex2) edgeToBeDeleted = edge.getPosition();
+		// }
+		
+		NodeIterator<Edge<E, T>> NodeIterator = vertex.getOutEdges();
+		Edge<E,T> edge;
+		while (NodeIterator.hasNext()) {
+			edge = NodeIterator.next();
+			if(edge.getV2() == vertex2) edgeToBeDeleted = edge.getPosition();
+			
+		}
+
+		vertex.removeOutEdge(edgeToBeDeleted);
+		vertex2.removeInEdge(edgeToBeDeleted);
+		edgeList.remove(edgeToBeDeleted);
 
 	}
 
 	/** Delete a vertex v and all its corresponding edges  */
-	public void removeVertex(){
-		// TODO Auto-generated method stub
+	public void removeVertex(Vertex<E, T> vertex){
+		
 
 	}
 
