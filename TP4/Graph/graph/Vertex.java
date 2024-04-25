@@ -108,9 +108,21 @@ public class Vertex <E,T> {
 	 * @return the neighbors of the vertex
 	 */
 	public Vertex<E,T>[] getNeighbors() {
-		// TODO: Implement getNeighbors using Edge.getOpposite()
-		return null;
-		
+		NodeIterator<Edge<E, T>> NodeIterator;
+		Vertex<E,T>[] neighbors = new Vertex[getInEdges().size() + getOutEdges().size()];
+		int index = 0;
+
+		NodeIterator = getInEdges();
+		while (NodeIterator.hasNext()) {
+			neighbors[index++] = NodeIterator.next().getOpposite(this);
+		}
+
+		NodeIterator = getOutEdges();
+		while (NodeIterator.hasNext()) {
+			neighbors[index++] = NodeIterator.next().getOpposite(this);
+		}
+
+		return neighbors; // take all the vetices in list neighbors into here
 	}
 
 }
