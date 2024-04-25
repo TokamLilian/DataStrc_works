@@ -180,13 +180,45 @@ public class Graph <E,T> {
 
 	/** Delete a vertex v and all its corresponding edges  */
 	public void removeVertex(Vertex<E, T> vertex){
+		NodeIterator<Edge<E, T>> InNodeIterator = vertex.getInEdges();
+		Edge<E,T> edge;
+		while (InNodeIterator.hasNext()) {
+			edge = InNodeIterator.next();
+			edge.getV1().removeOutEdge(edge.getPosition());
+			vertex.removeInEdge(edge.getPosition());
+		}
+
+		NodeIterator<Edge<E, T>> OutNodeIterator = vertex.getOutEdges();
+		while (OutNodeIterator.hasNext()) {
+			edge = OutNodeIterator.next();
+			vertex.removeOutEdge(edge.getPosition());
+			edge.getV2().removeInEdge(edge.getPosition());
+		}
 		
+		vertexList.remove(vertex.getPosition());
 
 	}
 
 	/** Checks if two vetices are adjacent  */
-	public boolean areAdjacent(Vertex<String, String> v1, Vertex<String, String> v2){
-		return directed;
+	public boolean areAdjacent(Vertex<E, T> v1, Vertex<E, T> v2){
+		NodeIterator<Edge<E, T>> InNodeIterator = v1.getInEdges();
+		Edge<E,T> edge;
+		while (InNodeIterator.hasNext()) {
+			edge = InNodeIterator.next();
+			if (edge.getV1() == v2);
+				return true;
+		}
+
+		NodeIterator<Edge<E, T>> OutNodeIterator = v1.getOutEdges();
+		while (OutNodeIterator.hasNext()) {
+			edge = OutNodeIterator.next();
+			
+			if (edge.getV2() == v2){
+				return true;
+			}
+		}
+
+		return false;
 
 	}
 	
@@ -207,15 +239,29 @@ public class Graph <E,T> {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'isDirected'");
     }
+	
+	public boolean isCyclic(Vertex<E, T> vertex) {
+		if (vertex.getStatus() == 2) return true;			// return true as we come over an already visited node
+        DoublyLinkedList<Vertex<E, T>> dfs = new DoublyLinkedList<>();
+		vertex.setStatus(2);
+		dfs.add(vertex);
+		
+        Vertex<E, T>[] neighbours = vertex.getNeighbors();
 
+		for (Vertex<E, T> next : neighbours){
+			if (next.getStatus() == 0) isCyclic(next);		// if neighbour is not visited
+		}
+
+		return false;
+    }
+	
 	/**
 	 * Verify if the graph is cyclic
 	 * @return
 	 */
-    public boolean isCyclic() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'isCyclic'");
-    }
+	public boolean isCyclic() {
+		return isCyclic(vertices_array()[0]);
+	}
 
 	/**
 	 * Verifies the number of connected components in the graph
