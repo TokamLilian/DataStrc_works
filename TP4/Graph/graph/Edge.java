@@ -99,9 +99,10 @@ public class Edge <E,T> {
 	/**
 	 * Determine the opposite vertex of given vertex in parameter
 	 */
-	public Vertex<String, String> getOpposite(Vertex<String,String> v){
-		// TODO: Implement getOpposite
-		return v;
+	public Vertex<E, T> getOpposite(Vertex<E, T> v){
+		if (v1 == v) return v1;
+		else if (v2 == v) return v2;
+		else return null;
 		
 	}
 }
