@@ -224,7 +224,7 @@ public class Graph <E,T> {
 	public boolean isConnected() {
 		// Perform DFS traversal
 		Vertex<E, T>[] verticesArray = vertices_array();
-        DFS(verticesArray[0]);		// Perform a DFS to mark all reachable vertices
+        DFS();		// Perform a DFS to mark all reachable vertices
 
         // Check if all vertices were visited
         for (Vertex<E,T> vertex : verticesArray) {
@@ -280,13 +280,14 @@ public class Graph <E,T> {
 	 */
     public int connectedComponents() {
         int count = 0;
+		DoublyLinkedList<Vertex<E, T>> dfs_list = new DoublyLinkedList<>();
 
 		@SuppressWarnings("unchecked")
 		Vertex<E, T>[] verticesArray = vertices_array();
 		for (Vertex<E, T> vertex : verticesArray){
 			if (vertex.getStatus() == 0){			// if not visited
 				count++;
-				DFS(vertex);
+				DFS(vertex, dfs_list);
 			}
 		}
 		connectedComponents = count;
@@ -297,53 +298,79 @@ public class Graph <E,T> {
 	 * Perform a breadth-first search on the graph
 	 * @return Array of vetices
 	 */
-    public Vertex<String, String>[] BFS() {
-		Vertex<String, String> root = (Vertex<String, String>) vertices_array()[0];
-        Queue<Vertex<String, String>> queue = new LinkedList<>();
+    public void BFS(Vertex<E, T> root, DoublyLinkedList<Vertex<E, T>> bfs_list) {
+		Queue<Vertex<E, T>> queue = new LinkedList<>();
 		queue.add(root);
 
 		while (!queue.isEmpty()){
 			root = queue.remove();
-			root.setStatus(2);
-			Vertex<String, String>[] neighbors = root.getNeighbors();
-			for (Vertex<String, String> next : neighbors){
-				queue.add(next);
+			root.setStatus(2); bfs_list.add(root);
+			Vertex<E, T>[] neighbors = root.getNeighbors();
+			for (Vertex<E, T> next : neighbors){
+				if(next.getStatus() == 0) queue.add(next);
 			}
 		}
-		return (Vertex<String, String>[]) queue.toArray();
+		
     }
+
+	public Vertex<E, T>[] BFS() {
+		DoublyLinkedList<Vertex<E, T>> bfs_list = new DoublyLinkedList<>();
+		Vertex<E, T>[] verticesArray = vertices_array();
+
+		for (Vertex<E, T> vertex : verticesArray){
+			BFS(vertex, bfs_list);
+		}
+		// convert the list to an array
+		Vertex<E, T>[] bfsArray = new Vertex[vertexList.size()];
+		NodeIterator<Vertex<E, T>> iter = bfs_list.iterator();
+		int index = 0;
+
+		while(iter.hasNext()){
+			Vertex<E, T> nextVertex = iter.next();
+			bfsArray[index++] = nextVertex;
+			nextVertex.setStatus(0);		// unvisit each node
+		}
+
+		return bfsArray;
+	}
 
 	/**
 	 * Perform a depth-first search on the graph
 	 * @return Array of vetices
 	 */
-    public Vertex<E, T>[] DFS(Vertex<E, T> vertex) {
-		
-		//if (vertex.getStatus() == 2) return null;// already visited
+    public void DFS(Vertex<E, T> vertex, DoublyLinkedList<Vertex<E, T>> dfs_list) {
 
-		DoublyLinkedList<Vertex<E, T>> dfs = new DoublyLinkedList<>();
 		vertex.setStatus(2);
-		dfs.add(vertex);
+		dfs_list.add(vertex);
 
         Vertex<E, T>[] neighbours = vertex.getNeighbors();
 
 		for (Vertex<E, T> next : neighbours){
-			if (next.getStatus() == 0) DFS(next);		// if neighbour is not visited
+			if (next.getStatus() == 0) DFS(next, dfs_list);		// if neighbor is not visited, perform DFS on neighbor
 		}
 
-		@SuppressWarnings("unchecked")
-		Vertex<E, T>[] dfsArray = new Vertex[vertexList.size()];
-		NodeIterator<Vertex<E, T>> iter = dfs.iterator();
-		int index = 0;
-		while(iter.hasNext())
-			dfsArray[index++] = iter.next();
-
-		return dfsArray;
     }	
 
 	@SuppressWarnings("unchecked")
 	public Vertex<E, T>[] DFS() {
-		return DFS(vertices_array()[0]);		// Depth first search on first vertex
+		DoublyLinkedList<Vertex<E, T>> dfs_list = new DoublyLinkedList<>();
+		Vertex<E, T>[] verticesArray = vertices_array();
+        for (Vertex<E,T> vertex : verticesArray) {			// perform DFS on all vertices to ensure that all the connected components are covered
+			if(vertex.getStatus() == 0) DFS(vertex, dfs_list);		// if vertex is not visited, perform DFS on vertex
+		}
+
+		@SuppressWarnings("unchecked")
+		Vertex<E, T>[] dfsArray = new Vertex[vertexList.size()];
+		NodeIterator<Vertex<E, T>> iter = dfs_list.iterator();
+		int index = 0;
+		while(iter.hasNext()){
+			Vertex<E, T> nextVertex = iter.next();
+			dfsArray[index++] = nextVertex;
+			nextVertex.setStatus(0);		// unvisit each node
+		}
+
+		return dfsArray;
+		
 	}
 
 }
