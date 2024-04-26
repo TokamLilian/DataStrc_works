@@ -158,11 +158,6 @@ public class Graph <E,T> {
 	/** Delete an edge*/
 	public void removeEdge(Vertex<E, T> vertex, Vertex<E, T> vertex2){
 		Node<Edge<E, T>> edgeToBeDeleted = null;
-
-		// Edge<E, T>[] allEdges = edges_array();
-		// for(Edge<E,T> edge : allEdges) {
-		// 	if(edge.getV1() == vertex && edge.getV2() == vertex2) edgeToBeDeleted = edge.getPosition();
-		// }
 		
 		NodeIterator<Edge<E, T>> NodeIterator = vertex.getOutEdges();
 		Edge<E,T> edge;
@@ -227,8 +222,7 @@ public class Graph <E,T> {
 	 * @return
 	 */	
 	public boolean isConnected() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'isConnected'");
+		return false; ////
 	}
 
 	/**
@@ -236,8 +230,7 @@ public class Graph <E,T> {
 	 * @return
 	 */
     public boolean isDirected() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'isDirected'");
+        return directed;
     }
 	
 	public boolean isCyclic(Vertex<E, T> vertex) {
@@ -249,8 +242,8 @@ public class Graph <E,T> {
         Vertex<E, T>[] neighbours = vertex.getNeighbors();
 
 		for (Vertex<E, T> next : neighbours){
-			if (next.getStatus() == 0) isCyclic(next);		// if neighbour is not visited
-		}
+			isCyclic(next);
+		} //move to next vertex
 
 		return false;
     }
@@ -260,7 +253,11 @@ public class Graph <E,T> {
 	 * @return
 	 */
 	public boolean isCyclic() {
-		return isCyclic(vertices_array()[0]);
+		Vertex<E,T>[] vertices = vertices_array();
+		for (Vertex<E,T> v : vertices)
+			if (isCyclic(v)) return true;
+
+		return false;
 	}
 
 	/**
@@ -292,10 +289,10 @@ public class Graph <E,T> {
 		queue.add(root);
 
 		while (!queue.isEmpty()){
-			queue.remove();
+			root = queue.remove();
 			root.setStatus(2);
-			Vertex<String, String>[] neighbours = root.getNeighbors();
-			for (Vertex<String, String> next : neighbours){
+			Vertex<String, String>[] neighbors = root.getNeighbors();
+			for (Vertex<String, String> next : neighbors){
 				queue.add(next);
 			}
 		}
