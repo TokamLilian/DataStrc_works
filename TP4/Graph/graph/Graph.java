@@ -222,7 +222,18 @@ public class Graph <E,T> {
 	 * @return
 	 */	
 	public boolean isConnected() {
-		return false; ////
+		// Perform DFS traversal
+		Vertex<E, T>[] verticesArray = vertices_array();
+        DFS(verticesArray[0]);		// Perform a DFS to mark all reachable vertices
+
+        // Check if all vertices were visited
+        for (Vertex<E,T> vertex : verticesArray) {
+            if (vertex.getStatus() == 0) {
+                return false; // Graph is disconnected
+            }
+        }
+		isConnected = true;
+        return isConnected; // Graph is connected
 	}
 
 	/**
@@ -255,7 +266,10 @@ public class Graph <E,T> {
 	public boolean isCyclic() {
 		Vertex<E,T>[] vertices = vertices_array();
 		for (Vertex<E,T> v : vertices)
-			if (isCyclic(v)) return true;
+			if (isCyclic(v)){ 
+				isCyclic = true;
+				return isCyclic;
+			}
 
 		return false;
 	}
@@ -268,15 +282,15 @@ public class Graph <E,T> {
         int count = 0;
 
 		@SuppressWarnings("unchecked")
-		Vertex<String, String> [] verticiesArray = (Vertex<String, String>[])vertices_array();
-		for (Vertex<String, String> vertex : verticiesArray){
+		Vertex<E, T>[] verticesArray = vertices_array();
+		for (Vertex<E, T> vertex : verticesArray){
 			if (vertex.getStatus() == 0){			// if not visited
 				count++;
 				DFS(vertex);
 			}
 		}
 		connectedComponents = count;
-		return count;
+		return connectedComponents;
     }
 
 	/**
@@ -303,23 +317,23 @@ public class Graph <E,T> {
 	 * Perform a depth-first search on the graph
 	 * @return Array of vetices
 	 */
-    public Vertex<String, String>[] DFS(Vertex<String, String> vertex) {
+    public Vertex<E, T>[] DFS(Vertex<E, T> vertex) {
 		
 		//if (vertex.getStatus() == 2) return null;// already visited
 
-		DoublyLinkedList<Vertex<String, String>> dfs = new DoublyLinkedList<>();
+		DoublyLinkedList<Vertex<E, T>> dfs = new DoublyLinkedList<>();
 		vertex.setStatus(2);
 		dfs.add(vertex);
 
-        Vertex<String, String>[] neighbours = vertex.getNeighbors();
+        Vertex<E, T>[] neighbours = vertex.getNeighbors();
 
-		for (Vertex<String, String> next : neighbours){
+		for (Vertex<E, T> next : neighbours){
 			if (next.getStatus() == 0) DFS(next);		// if neighbour is not visited
 		}
 
 		@SuppressWarnings("unchecked")
-		Vertex<String,String>[] dfsArray = new Vertex[vertexList.size()];
-		NodeIterator<Vertex<String,String>> iter = dfs.iterator();
+		Vertex<E, T>[] dfsArray = new Vertex[vertexList.size()];
+		NodeIterator<Vertex<E, T>> iter = dfs.iterator();
 		int index = 0;
 		while(iter.hasNext())
 			dfsArray[index++] = iter.next();
@@ -328,8 +342,8 @@ public class Graph <E,T> {
     }	
 
 	@SuppressWarnings("unchecked")
-	public Vertex<String, String>[] DFS() {
-		return DFS((Vertex<String, String>) vertices_array()[0]);		// Depth first search on first vertex
+	public Vertex<E, T>[] DFS() {
+		return DFS(vertices_array()[0]);		// Depth first search on first vertex
 	}
 
 }
